@@ -11,4 +11,4 @@ Router.post('/callback', async(ctx) => {
 
 app.use(Router.routes())
 app.use(bodyParser())
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
