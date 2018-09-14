@@ -15,13 +15,9 @@ const config = {
 const client = new Line.Client(config)
 
 Router.post('/calendar', async(ctx) => {
-    ctx.body = "a"
-    calendar(12,12,12).then((res) => {
-        ctx.body = { type: 'text', text: res.details };
-        //return client.replyMessage(event.replyToken, echo);
-    }).catch((err) => {
-       // console.log(err)
-    })
+    //ctx.body = "a"
+    const a =  await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+    ctx.body = a
 })
 
 Router.post('/callback', async(ctx) => {
@@ -47,14 +43,9 @@ function handleEvent(event) {
     }
 
     if(event.message.text == 'hari ini') {
-        request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`, (err, res) => {  
-            if(res) {
-                console.log(res.body.details)    
-                const echo = { type: 'text', text: res.body.details.sasih };
-                return client.replyMessage(event.replyToken, echo);
-            }
-
-        })
+        const details = await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+        const echo = { type: 'text', text: res.body.details.sasih }
+        return client.replyMessage(event.replyToken, echo);
     }
   
     // // create a echoing text message
