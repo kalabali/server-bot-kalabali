@@ -4,6 +4,7 @@ const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
 
 const app = new Koa()
+app.use(bodyParser())
 const config = {
     channelAccessToken : process.env.channelAccessToken || "",
     channelSecret : process.env.channelSecret || "" 
@@ -41,5 +42,5 @@ function handleEvent(event) {
 
 //app.use(Line.middleware(config))
 app.use(Router.routes())
-app.use(bodyParser())
+
 app.listen(process.env.PORT || 3000)
