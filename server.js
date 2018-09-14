@@ -14,13 +14,13 @@ const client = new Line.Client(config)
 
 Router.post('/callback', async(ctx) => {
 
-    // Promise
-    // .all(ctx.request.body.events.map(handleEvent))
-    // .then((result) => ctx.body = result)
-    // .catch((err) => {
-    //   console.error(err);
-    //   ctx.status = 500;
-    // });
+    Promise
+    .all(ctx.request.body.events.map(handleEvent))
+    .then((result) => ctx.body = result)
+    .catch((err) => {
+      console.error(err);
+      ctx.status = 500;
+    });
     
     console.log(ctx.request.body)
     console.log(ctx.request.rawBody)
