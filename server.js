@@ -37,7 +37,7 @@ function handleEvent(event) {
     return client.replyMessage(event.replyToken, echo);
   }
 
-app.use(Line.middleware(config))
+//app.use(Line.middleware(config))
 app.use(Router.routes())
 app.use(bodyParser())
 app.listen(process.env.PORT || 3000)
