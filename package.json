@@ -5,9 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "@line/bot-sdk": "^6.2.1",
+    "dotenv": "^6.0.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "request": "^2.88.0"
   },
   "scripts": {
     "start": "node server.js"

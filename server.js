@@ -2,7 +2,8 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
-
+const calendar = require('./service/calendar')
+require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
 const config = {
@@ -12,11 +13,19 @@ const config = {
 
 const client = new Line.Client(config)
 
-Router.post('/callback', async(ctx) => {
+Router.get('/calendar', async(ctx) => {
+    await calendar(12,12,12).then((res) => {
+        ctx.body = res
+    })
+})
 
+Router.post('/callback', async(ctx) => {
     Promise
     .all(ctx.request.body.events.map(handleEvent))
-    .then((result) => ctx.body = result)
+    .then((result) => {
+        ctx.status = 200
+        ctx.body = result
+    })
     .catch((err) => {
       console.error(err);
       ctx.status = 500;
@@ -31,6 +40,12 @@ function handleEvent(event) {
     if (event.type !== 'message' || event.message.type !== 'text') {
       // ignore non-text-message event
       return Promise.resolve(null);
+    }
+
+    if(event.message.text.toLowerCase == 'hari ini') {
+        calendar(12,12,12).then((res) => {
+            client.replyMessage(event.replyToken, res.details.sasih);
+        })
     }
   
     // create a echoing text message
