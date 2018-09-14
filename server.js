@@ -6,6 +6,7 @@ const calendar = require('./service/calendar')
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
+const request = require('request')
 const config = {
     channelAccessToken : process.env.channelAccessToken || "",
     channelSecret : process.env.channelSecret || "" 
@@ -13,9 +14,13 @@ const config = {
 
 const client = new Line.Client(config)
 
-Router.get('/calendar', async(ctx) => {
-    await calendar(12,12,12).then((res) => {
-        ctx.body = res
+Router.post('/calendar', async(ctx) => {
+    ctx.body = "a"
+    calendar(12,12,12).then((res) => {
+        ctx.body = { type: 'text', text: res.details };
+        //return client.replyMessage(event.replyToken, echo);
+    }).catch((err) => {
+       // console.log(err)
     })
 })
 
@@ -43,12 +48,9 @@ function handleEvent(event) {
     }
 
     if(event.message.text == 'hari ini') {
-        await calendar(12,12,12).then((res) => {
-            const echo = { type: 'text', text: res.details };
-            console.log(echo)
+        request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`, (err, res) => {  
+            const echo = { type: 'text', text: res.details.sasih };
             return client.replyMessage(event.replyToken, echo);
-        }).catch((err) => {
-            console.log(err)
         })
     }
   
