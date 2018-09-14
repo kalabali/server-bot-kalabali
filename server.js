@@ -43,7 +43,7 @@ function handleEvent(event) {
     }
 
     if(event.message.text == 'hari ini') {
-        calendar(12,12,12).then((res) => {
+        await calendar(12,12,12).then((res) => {
             const echo = { type: 'text', text: res.details };
             console.log(echo)
             return client.replyMessage(event.replyToken, echo);
