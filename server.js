@@ -42,9 +42,9 @@ function handleEvent(event) {
       return Promise.resolve(null);
     }
 
-    if(event.message.text.toLowerCase == 'hari ini') {
+    if(event.message.text == 'hari ini') {
         calendar(12,12,12).then((res) => {
-            client.replyMessage(event.replyToken, res.details.sasih);
+            return client.replyMessage(event.replyToken, res.details.sasih);
         })
     }
   
