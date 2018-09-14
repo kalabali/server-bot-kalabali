@@ -23,7 +23,7 @@ Router.post('/calendar', async(ctx) => {
 Router.post('/callback', async(ctx,next) => {
     ctx.request.body = ctx.request.fields.events || ctx.request.body.events
     await next()
-    let events = ctx.request.events
+    let events = ctx.request.body.events
     const results = await Promise.all(
         events.map(async e => {
             if(e.message.text == 'hari ini'){
