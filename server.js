@@ -49,7 +49,7 @@ function handleEvent(event) {
 
     if(event.message.text == 'hari ini') {
         request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`, (err, res) => {  
-            const echo = { type: 'text', text: res.details.sasih };
+            const echo = { type: 'text', text: res.body.details.sasih };
             return client.replyMessage(event.replyToken, echo);
         })
     }
