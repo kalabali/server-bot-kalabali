@@ -20,7 +20,9 @@ Router.post('/calendar', async(ctx) => {
     ctx.body = a
 })
 
-Router.post('/callback', async(ctx) => {
+Router.post('/callback', async(ctx,next) => {
+    ctx.request.body = ctx.request.fields.events || ctx.request.body.events
+    await next()
     let events = ctx.request.events
     const results = await Promise.all(
         events.map(async e => {
