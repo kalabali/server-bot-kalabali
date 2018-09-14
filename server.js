@@ -44,7 +44,7 @@ function handleEvent(event) {
 
     if(event.message.text == 'hari ini') {
         const details = request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
-        const echo = { type: 'text', text: res.body.details.sasih }
+        const echo = { type: 'text', text: details.body.details.sasih }
         return client.replyMessage(event.replyToken, echo);
     }
   
