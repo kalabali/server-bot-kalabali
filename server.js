@@ -21,18 +21,17 @@ Router.post('/calendar', async(ctx) => {
 })
 
 Router.post('/callback', async(ctx) => {
-    await Promise
-    .all(ctx.request.body.events.map(handleEvent))
-    .then((result) => {
-        ctx.status = 200
-        ctx.body = result
-    })
-    .catch((err) => {
-      console.error(err);
-      ctx.status = 500;
-    });
-    
-    console.log(ctx.request.body)
+    let events = ctx.request.events
+    const results = await Promise.all(
+        events.map(async e => {
+            if(e.message.text == 'hari ini'){
+                const details = await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+                const echo = { type: 'text', text: details.body.details.sasih }
+                return client.replyMessage(event.replyToken, echo);
+            }
+        })
+    )
+    ctx.body = await Promise.all(results.map(result => result.json()))
 })
 
 // event handler
