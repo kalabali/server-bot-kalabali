@@ -52,8 +52,8 @@ function handleEvent(event) {
             if(err) {
                 console.log(err)
             }
-            console.log(res.body)    
-            const echo = { type: 'text', text: "res.body.details.sasih" };
+            console.log(res.body.details)    
+            const echo = { type: 'text', text: res.body.details.sasih };
             return client.replyMessage(event.replyToken, echo);
         })
     }
