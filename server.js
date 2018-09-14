@@ -25,19 +25,15 @@ Router.post('/calendar', async(ctx) => {
 })
 
 Router.post('/callback', async(ctx) => {
-    Promise
-    .all(ctx.request.body.events.map(handleEvent))
-    .then((result) => {
-        ctx.status = 200
-        ctx.body = result
-    })
-    .catch((err) => {
-      console.error(err);
-      ctx.status = 500;
-    });
-    
-    console.log(ctx.request.body)
-    console.log(ctx.request.rawBody)
+    if(ctx.request.body.event.message.text == 'hari ini') {
+        request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`, (err, res) => {  
+            if(res) {
+                console.log(res.body.details)    
+                const echo = { type: 'text', text: res.body.details.sasih };
+                return client.replyMessage(event.replyToken, echo);
+            }
+        })
+    }
 })
 
 // event handler
@@ -49,12 +45,11 @@ function handleEvent(event) {
 
     if(event.message.text == 'hari ini') {
         request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`, (err, res) => {  
-            if(err) {
-                console.log(err)
+            if(res) {
+                console.log(res.body.details)    
+                const echo = { type: 'text', text: res.body.details.sasih };
+                return client.replyMessage(event.replyToken, echo);
             }
-            console.log(res.body.details)    
-            const echo = { type: 'text', text: res.body.details.sasih };
-            return client.replyMessage(event.replyToken, echo);
         })
     }
   
