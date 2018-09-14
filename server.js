@@ -44,7 +44,9 @@ function handleEvent(event) {
 
     if(event.message.text == 'hari ini') {
         calendar(12,12,12).then((res) => {
-            return client.replyMessage(event.replyToken, res.details.sasih);
+            return client.replyMessage(event.replyToken, res);
+        }).catch((err) => {
+            console.log(err)
         })
     }
   
