@@ -21,7 +21,7 @@ Router.post('/calendar', async(ctx) => {
 })
 
 Router.post('/callback', async(ctx) => {
-    Promise
+    await Promise
     .all(ctx.request.body.events.map(handleEvent))
     .then((result) => {
         ctx.status = 200
