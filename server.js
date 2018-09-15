@@ -3,6 +3,7 @@ const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
 const calendar = require('./service/calendar')
+var koa2Req = require('koa2-request');
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
@@ -16,7 +17,7 @@ const client = new Line.Client(config)
 
 Router.post('/calendar', async(ctx) => {
     //ctx.body = "a"
-    const a =  await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+    const a =  await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
     ctx.body = a
 })
 
@@ -24,14 +25,13 @@ Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
         ctx.request.body.events.map(async e => {
             //if(e.message.text == 'hari ini'){
-                const details = await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
-                console.log(details)
-                const echo = { type: 'text', text: details.details.sasih }
-                return client.replyMessage(event.replyToken, echo);
+                const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+                const echo = { type: 'text', text: details.body }
+                return client.replyMessage(e.replyToken, echo);
             //}
         })
     )
-    ctx.body = await Promise.all(results.map(result => result.json()))
+    //ctx.body = await Promise.all(results.map(result => result.json()))
 })
 
 // event handler
