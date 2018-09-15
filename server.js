@@ -20,17 +20,15 @@ Router.post('/calendar', async(ctx) => {
     ctx.body = a
 })
 
-Router.post('/callback', async(ctx,next) => {
-    ctx.request.body = ctx.request.fields.events || ctx.request.body.events
-    await next()
-    let events = ctx.request.body.events
+Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
-        events.map(async e => {
-            if(e.message.text == 'hari ini'){
-                const details = await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
-                const echo = { type: 'text', text: details.body.details.sasih }
+        ctx.request.body.events.map(async e => {
+            //if(e.message.text == 'hari ini'){
+                const details = await request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`).body
+                console.log(details)
+                const echo = { type: 'text', text: details.details.sasih }
                 return client.replyMessage(event.replyToken, echo);
-            }
+            //}
         })
     )
     ctx.body = await Promise.all(results.map(result => result.json()))
