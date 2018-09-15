@@ -26,7 +26,7 @@ Router.post('/callback', async(ctx) => {
         ctx.request.body.events.map(async e => {
             //if(e.message.text == 'hari ini'){
                 const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
-                const echo = { type: 'text', text: details.body.sasih }
+                const echo = { type: 'text', text: details.body.details.sasih }
                 return client.replyMessage(e.replyToken, echo);
             //}
         })
