@@ -34,190 +34,330 @@ Router.post('/callback', async(ctx) => {
                 //console.log(details)
                 //const body = JSON.parse(details.body)
                 const echo =  {
-                    "type": "flex",
-                    "altText": "This is a Flex Message",
-                    "contents": {
-                        "type": "bubble",
-                        "styles": {
-                          "footer": {
-                            "separator": true
-                          }
+                    "type": "bubble",
+                    "styles": {
+                      "footer": {
+                        "separator": true
+                      }
+                    },
+                    "body": {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": "Kalender Bali",
+                          "weight": "bold",
+                          "color": "#1DB446",
+                          "size": "sm"
                         },
-                        "body": {
+                        {
+                          "type": "text",
+                          "text": "17 September 2018",
+                          "weight": "bold",
+                          "size": "xl",
+                          "margin": "md"
+                        },
+                        {
+                          "type": "text",
+                          "text": "Events : Tilem",
+                          "size": "xs",
+                          "color": "#aaaaaa",
+                          "wrap": true
+                        },
+                        {
+                          "type": "separator",
+                          "margin": "xxl"
+                        },
+                        {
                           "type": "box",
                           "layout": "vertical",
+                          "margin": "xxl",
+                          "spacing": "sm",
                           "contents": [
+                             {
+                          "type": "text",
+                          "text": "Deskripsi",
+                          "size": "xs",
+                          "color": "#aaaaaa",
+                          "wrap": true
+                        },
                             {
-                              "type": "text",
-                              "text": "Kalender Bali",
-                              "weight": "bold",
-                              "color": "#1DB446",
-                              "size": "sm"
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Day",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Suma",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
                             },
                             {
-                              "type": "text",
-                              "text": "17 September 2018",
-                              "weight": "bold",
-                              "size": "xl",
-                              "margin": "md"
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Wuku",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Wayang",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
                             },
                             {
-                              "type": "text",
-                              "text": "Events : Tilem",
-                              "size": "xs",
-                              "color": "#aaaaaa",
-                              "wrap": true
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Sasih",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Kapat",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
                             },
                             {
                               "type": "separator",
                               "margin": "xxl"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "margin": "xxl",
+                          "spacing": "sm",
+                          "contents": [
+                             {
+                          "type": "text",
+                          "text": "Wewaran",
+                          "size": "xs",
+                          "color": "#aaaaaa",
+                          "wrap": true
+                        },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Ekawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "-",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
                             },
                             {
                               "type": "box",
-                              "layout": "vertical",
-                              "margin": "xxl",
-                              "spacing": "sm",
+                              "layout": "horizontal",
                               "contents": [
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "Energy Drink",
-                                      "size": "sm",
-                                      "color": "#555555",
-                                      "flex": 0
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$2.99",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Dwiwara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "Chewing Gum",
-                                      "size": "sm",
-                                      "color": "#555555",
-                                      "flex": 0
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$0.99",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Menga",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Triwara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "Bottled Water",
-                                      "size": "sm",
-                                      "color": "#555555",
-                                      "flex": 0
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$3.33",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Pasah",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Caturwara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "separator",
-                                  "margin": "xxl"
+                                  "type": "text",
+                                  "text": "Laba",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Pancawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "margin": "xxl",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "ITEMS",
-                                      "size": "sm",
-                                      "color": "#555555"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "3",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Kliwon",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Sadwara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "TOTAL",
-                                      "size": "sm",
-                                      "color": "#555555"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$7.31",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Paniron",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Saptawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "CASH",
-                                      "size": "sm",
-                                      "color": "#555555"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$8.0",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Soma",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Astawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
                                 },
                                 {
-                                  "type": "box",
-                                  "layout": "horizontal",
-                                  "contents": [
-                                    {
-                                      "type": "text",
-                                      "text": "CHANGE",
-                                      "size": "sm",
-                                      "color": "#555555"
-                                    },
-                                    {
-                                      "type": "text",
-                                      "text": "$0.69",
-                                      "size": "sm",
-                                      "color": "#111111",
-                                      "align": "end"
-                                    }
-                                  ]
+                                  "type": "text",
+                                  "text": "Soma",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Sangawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Soma",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "box",
+                              "layout": "horizontal",
+                              "contents": [
+                                {
+                                  "type": "text",
+                                  "text": "Dasawara",
+                                  "size": "sm",
+                                  "color": "#555555",
+                                  "flex": 0
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Soma",
+                                  "size": "sm",
+                                  "color": "#111111",
+                                  "align": "end"
                                 }
                               ]
                             },
@@ -227,7 +367,8 @@ Router.post('/callback', async(ctx) => {
                             }
                           ]
                         }
-                      }
+                      ]
+                    }
                   }
                 ctx.body = echo;
                 return client.replyMessage(e.replyToken, echo);
