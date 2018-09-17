@@ -30,7 +30,7 @@ Router.post('/callback', async(ctx) => {
             //if(e.message.text == 'hari ini'){
                 const now = await moment().tz("Asia/Makassar");
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
-                const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
+                //const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 //console.log(details)
                 const body = JSON.parse(details.body)
                 const echo = {
