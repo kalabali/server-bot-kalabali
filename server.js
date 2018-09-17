@@ -280,7 +280,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": body.details.wewaran.sadwara,
+                                      "text": "body.details.wewaran.sadwara",
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -300,7 +300,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": body.details.wewaran.saptawara,
+                                      "text": "body.details.wewaran.saptawara",
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -320,7 +320,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": body.details.wewaran.astawara,
+                                      "text": "body.details.wewaran.astawara",
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -340,7 +340,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": body.details.wewaran.sangawara,
+                                      "text": "body.details.wewaran.sangawara",
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -360,7 +360,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": body.details.wewaran.dasawara,
+                                      "text": "body.details.wewaran.dasawara",
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
