@@ -34,11 +34,11 @@ Router.post('/callback', async(ctx) => {
                 //console.log(details)
                 //const body = JSON.parse(details.body)
                 const echo = {
-                    "type": "bubble", // ①
-                    "body": { // ②
-                      "type": "box", // ③
-                      "layout": "horizontal",　// ④
-                      "contents": [ // ⑤
+                    type: "bubble", // ①
+                    body: { // ②
+                      type: "box", // ③
+                      layout: "horizontal",　// ④
+                      contents: [ // ⑤
                         {
                           "type": "text", // ⑥
                           "text": "Hello,"
