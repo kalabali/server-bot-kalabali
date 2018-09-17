@@ -300,7 +300,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "body.details.wewaran.saptawara",
+                                      "text": body.details.wewaran.saptawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
