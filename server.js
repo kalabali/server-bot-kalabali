@@ -31,7 +31,7 @@ Router.post('/callback', async(ctx) => {
                 const now = await moment().tz("Asia/Makassar");
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
-                const body = JSON.parse(details.body.details)
+                const body = JSON.parse(details.body)
                 const echo =  {
                     "type": "flex",
                     "altText": "This is a Flex Message",
@@ -97,7 +97,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": details.day.day_name.caka,
+                                      "text": details.details.day.day_name.caka,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
