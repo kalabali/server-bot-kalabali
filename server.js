@@ -32,7 +32,9 @@ Router.post('/callback', async(ctx) => {
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 const body = JSON.parse(details.body)
-                
+                if(body.events.length > 0){
+                    body.events.join()
+                }
                 const echo =  {
                     "type": "flex",
                     "altText": "Kalender Bali - Hari Ini",
@@ -63,7 +65,7 @@ Router.post('/callback', async(ctx) => {
                             },
                             {
                               "type": "text",
-                              "text": "Events : Tilem",
+                              "text": `Events : ${body.events}`,
                               "size": "xs",
                               "color": "#aaaaaa",
                               "wrap": true
