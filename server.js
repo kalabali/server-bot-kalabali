@@ -33,14 +33,27 @@ Router.post('/callback', async(ctx) => {
                 //const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 //console.log(details)
                 //const body = JSON.parse(details.body)
-                const echo = {
-                    type: 'template',
-                    altText: 'Confirm alt text',
-                    template: {
-                        type: "bubble",
-                        text: "Hallo"
+                const echo =  {
+                    "type": "flex",
+                    "altText": "This is a Flex Message",
+                    "contents": {
+                      "type": "bubble",
+                      "body": {
+                        "type": "box",
+                        "layout": "horizontal",
+                        "contents": [
+                          {
+                            "type": "text",
+                            "text": "Hello,"
+                          },
+                          {
+                            "type": "text",
+                            "text": "World!"
+                          }
+                        ]
                       }
-                }
+                    }
+                  }
                 ctx.body = echo;
                 return client.replyMessage(e.replyToken, echo);
 
