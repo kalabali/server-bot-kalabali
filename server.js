@@ -66,7 +66,7 @@ Router.post('/callback', async(ctx) => {
                             },
                             {
                               "type": "text",
-                              "text": "Events : ",
+                              "text": "Events : " + events,
                               "size": "xs",
                               "color": "#aaaaaa",
                               "wrap": true
@@ -280,7 +280,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "body.details.wewaran.sadwara",
+                                      "text": body.details.wewaran.sadwara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
