@@ -8,6 +8,8 @@ require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
 const request = require('request')
+var moment = require('moment-timezone');
+
 const config = {
     channelAccessToken : process.env.channelAccessToken || "",
     channelSecret : process.env.channelSecret || "" 
@@ -15,19 +17,37 @@ const config = {
 
 const client = new Line.Client(config)
 
-Router.post('/calendar', async(ctx) => {
+Router.get('/calendar', async(ctx) => {
     //ctx.body = "a"
-    const a =  await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
-    ctx.body = a
+    //const a =  await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+    const b = await moment().tz("Asia/Makassar");
+    ctx.body = b.format('DD')
 })
 
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
         ctx.request.body.events.map(async e => {
             //if(e.message.text == 'hari ini'){
-                const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+                const now = await moment().tz("Asia/Makassar");
+                const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
                 const body = JSON.parse(details.body)
-                const echo = { type: 'text', text: body.details.sasih }
+                const echo = {
+                    "type": "bubble", // ①
+                    "body": { // ②
+                      "type": "box", // ③
+                      "layout": "horizontal",　// ④
+                      "contents": [ // ⑤
+                        {
+                          "type": "text", // ⑥
+                          "text": "Hello,"
+                        },
+                        {
+                          "type": "text", // ⑥
+                          "text": "World!"
+                        }
+                      ]
+                    }
+                  }
                 ctx.body = echo;
                 return client.replyMessage(e.replyToken, echo);
 
