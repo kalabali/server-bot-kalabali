@@ -40,12 +40,12 @@ Router.post('/callback', async(ctx) => {
                       layout: "horizontal",　// ④
                       contents: [ // ⑤
                         {
-                          "type": "text", // ⑥
-                          "text": "Hello,"
+                          type: "text", // ⑥
+                          text: "Hello,"
                         },
                         {
-                          "type": "text", // ⑥
-                          "text": "World!"
+                          type: "text", // ⑥
+                          text: "World!"
                         }
                       ]
                     }
