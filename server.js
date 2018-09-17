@@ -34,6 +34,7 @@ Router.post('/callback', async(ctx) => {
                 const body = JSON.parse(details.body)
                 var events = ""
                 if(body.details.events.length > 0){
+                    console.log(body.details.events.length)
                     events = body.details.events.join()
                 }
                 const echo =  {
@@ -41,6 +42,13 @@ Router.post('/callback', async(ctx) => {
                     "altText": "Kalender Bali - Hari Ini",
                     "contents": {
                         "type": "bubble",
+                        "hero": {
+                            "type": "image",
+                            "url": body.details.day.day_name.image,
+                            "size": "full",
+                            "aspectRatio": "20:13",
+                            "aspectMode": "fit"
+                          },
                         "styles": {
                           "footer": {
                             "separator": true
