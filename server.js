@@ -390,18 +390,18 @@ Router.post('/callback', async(ctx) => {
 
             } else if(e.message.text == 'pilih hari'){
                 const echo = {
-                    type: "template",
-                    altText : "Pilih hari",
-                    template : {
-                        "type":"datetimepicker",
-                        "label":"Select date",
-                        "data":"storeId=12345",
-                        "mode":"datetime",
-                        "initial":"2017-12-25t00:00",
-                        "max":"2018-01-24t23:59",
-                        "min":"2017-12-25t00:00"
-                    }
-                 }
+                    type: 'template',
+                    altText: 'Datetime pickers alt text',
+                    template: {
+                      type: 'buttons',
+                      text: 'Select date / time !',
+                      actions: [
+                        { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
+                        { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
+                        { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+                      ],
+                    },
+                  }
 
                  return client.replyMessage(e.replyToken, echo);
             }
