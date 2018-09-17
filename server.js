@@ -35,7 +35,7 @@ Router.post('/callback', async(ctx) => {
                 var events = ""
                 if(body.details.events.length > 0){
                     console.log(body.details.events.length)
-                    events = body.details.events.join()
+                    events = body.details.events.map(e => e.information).join(',')
                 }
                 const echo =  {
                     "type": "flex",
