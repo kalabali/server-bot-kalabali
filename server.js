@@ -30,9 +30,8 @@ Router.post('/callback', async(ctx) => {
             //if(e.message.text == 'hari ini'){
                 const now = await moment().tz("Asia/Makassar");
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
-                //const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
-                //console.log(details)
-                //const body = JSON.parse(details.body)
+                const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
+                const body = JSON.parse(details.body.details)
                 const echo =  {
                     "type": "flex",
                     "altText": "This is a Flex Message",
@@ -56,7 +55,7 @@ Router.post('/callback', async(ctx) => {
                             },
                             {
                               "type": "text",
-                              "text": "17 September 2018",
+                              "text": now.format('DD MMMM YYYY'),
                               "weight": "bold",
                               "size": "xl",
                               "margin": "md"
@@ -98,7 +97,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Suma",
+                                      "text": details.day.day_name.caka,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
