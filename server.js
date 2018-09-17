@@ -66,7 +66,7 @@ Router.post('/callback', async(ctx) => {
                             },
                             {
                               "type": "text",
-                              "text": `Events : ${events}`,
+                              "text": "Events : " + events,
                               "size": "xs",
                               "color": "#aaaaaa",
                               "wrap": true
