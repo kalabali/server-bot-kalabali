@@ -35,7 +35,7 @@ Router.post('/callback', async(ctx) => {
                 
                 const echo =  {
                     "type": "flex",
-                    "altText": "This is a Flex Message",
+                    "altText": "Kalender Bali - Hari Ini",
                     "contents": {
                         "type": "bubble",
                         "styles": {
@@ -118,7 +118,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Wayang",
+                                      "text": body.details.wuku,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -138,7 +138,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Kapat",
+                                      "text": body.details.sasih,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -177,7 +177,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "-",
+                                      "text": body.details.wewaran.ekawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -197,7 +197,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Menga",
+                                      "text": body.details.wewaran.dwiwara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -217,7 +217,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Pasah",
+                                      "text": body.details.wewaran.triwara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -237,7 +237,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Laba",
+                                      "text": body.details.wewaran.caturwara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -257,7 +257,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Kliwon",
+                                      "text": body.details.wewaran.pancawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -277,7 +277,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Paniron",
+                                      "text": body.details.wewaran.sadwara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -297,7 +297,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Soma",
+                                      "text": body.details.wewaran.saptawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -317,7 +317,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Soma",
+                                      "text": body.details.wewaran.astawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -337,7 +337,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Soma",
+                                      "text": body.details.wewaran.sangawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
@@ -357,7 +357,7 @@ Router.post('/callback', async(ctx) => {
                                     },
                                     {
                                       "type": "text",
-                                      "text": "Soma",
+                                      "text": body.details.wewaran.dasawara,
                                       "size": "sm",
                                       "color": "#111111",
                                       "align": "end"
