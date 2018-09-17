@@ -34,341 +34,345 @@ Router.post('/callback', async(ctx) => {
                 //console.log(details)
                 //const body = JSON.parse(details.body)
                 const echo =  {
-                    "type": "bubble",
-                    "styles": {
-                      "footer": {
-                        "separator": true
-                      }
-                    },
-                    "body": {
-                      "type": "box",
-                      "layout": "vertical",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "Kalender Bali",
-                          "weight": "bold",
-                          "color": "#1DB446",
-                          "size": "sm"
+                    "type": "flex",
+                    "altText": "This is a Flex Message",
+                    "contents": {
+                        "type": "bubble",
+                        "styles": {
+                          "footer": {
+                            "separator": true
+                          }
                         },
-                        {
-                          "type": "text",
-                          "text": "17 September 2018",
-                          "weight": "bold",
-                          "size": "xl",
-                          "margin": "md"
-                        },
-                        {
-                          "type": "text",
-                          "text": "Events : Tilem",
-                          "size": "xs",
-                          "color": "#aaaaaa",
-                          "wrap": true
-                        },
-                        {
-                          "type": "separator",
-                          "margin": "xxl"
-                        },
-                        {
+                        "body": {
                           "type": "box",
                           "layout": "vertical",
-                          "margin": "xxl",
-                          "spacing": "sm",
                           "contents": [
-                             {
-                          "type": "text",
-                          "text": "Deskripsi",
-                          "size": "xs",
-                          "color": "#aaaaaa",
-                          "wrap": true
-                        },
                             {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Day",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
-                                },
-                                {
-                                  "type": "text",
-                                  "text": "Suma",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
+                              "type": "text",
+                              "text": "Kalender Bali",
+                              "weight": "bold",
+                              "color": "#1DB446",
+                              "size": "sm"
                             },
                             {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Wuku",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
-                                },
-                                {
-                                  "type": "text",
-                                  "text": "Wayang",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
+                              "type": "text",
+                              "text": "17 September 2018",
+                              "weight": "bold",
+                              "size": "xl",
+                              "margin": "md"
                             },
                             {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Sasih",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
-                                },
-                                {
-                                  "type": "text",
-                                  "text": "Kapat",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
+                              "type": "text",
+                              "text": "Events : Tilem",
+                              "size": "xs",
+                              "color": "#aaaaaa",
+                              "wrap": true
                             },
                             {
                               "type": "separator",
                               "margin": "xxl"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "box",
-                          "layout": "vertical",
-                          "margin": "xxl",
-                          "spacing": "sm",
-                          "contents": [
-                             {
-                          "type": "text",
-                          "text": "Wewaran",
-                          "size": "xs",
-                          "color": "#aaaaaa",
-                          "wrap": true
-                        },
+                            },
                             {
                               "type": "box",
-                              "layout": "horizontal",
+                              "layout": "vertical",
+                              "margin": "xxl",
+                              "spacing": "sm",
                               "contents": [
+                                 {
+                              "type": "text",
+                              "text": "Deskripsi",
+                              "size": "xs",
+                              "color": "#aaaaaa",
+                              "wrap": true
+                            },
                                 {
-                                  "type": "text",
-                                  "text": "Ekawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Day",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Suma",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "-",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Wuku",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Wayang",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Sasih",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Kapat",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "separator",
+                                  "margin": "xxl"
                                 }
                               ]
                             },
                             {
                               "type": "box",
-                              "layout": "horizontal",
+                              "layout": "vertical",
+                              "margin": "xxl",
+                              "spacing": "sm",
                               "contents": [
+                                 {
+                              "type": "text",
+                              "text": "Wewaran",
+                              "size": "xs",
+                              "color": "#aaaaaa",
+                              "wrap": true
+                            },
                                 {
-                                  "type": "text",
-                                  "text": "Dwiwara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Ekawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "-",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Menga",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Triwara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Dwiwara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Menga",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Pasah",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Caturwara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Triwara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Pasah",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Laba",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Pancawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Caturwara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Laba",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Kliwon",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Sadwara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Pancawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Kliwon",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Paniron",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Saptawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Sadwara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Paniron",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Soma",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Astawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Saptawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Soma",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Soma",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Sangawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Astawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Soma",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Soma",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "box",
-                              "layout": "horizontal",
-                              "contents": [
-                                {
-                                  "type": "text",
-                                  "text": "Dasawara",
-                                  "size": "sm",
-                                  "color": "#555555",
-                                  "flex": 0
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Sangawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Soma",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
                                 },
                                 {
-                                  "type": "text",
-                                  "text": "Soma",
-                                  "size": "sm",
-                                  "color": "#111111",
-                                  "align": "end"
+                                  "type": "box",
+                                  "layout": "horizontal",
+                                  "contents": [
+                                    {
+                                      "type": "text",
+                                      "text": "Dasawara",
+                                      "size": "sm",
+                                      "color": "#555555",
+                                      "flex": 0
+                                    },
+                                    {
+                                      "type": "text",
+                                      "text": "Soma",
+                                      "size": "sm",
+                                      "color": "#111111",
+                                      "align": "end"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "separator",
+                                  "margin": "xxl"
                                 }
                               ]
-                            },
-                            {
-                              "type": "separator",
-                              "margin": "xxl"
                             }
                           ]
                         }
-                      ]
-                    }
+                      }
                   }
                 ctx.body = echo;
                 return client.replyMessage(e.replyToken, echo);
