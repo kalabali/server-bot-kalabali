@@ -226,7 +226,7 @@ Router.post('/callback', async(ctx) => {
                     }
                   }
                 ctx.body = echo;
-                //return client.replyMessage(e.replyToken, echo);
+                return client.replyMessage(e.replyToken, echo);
 
             //}
         })
