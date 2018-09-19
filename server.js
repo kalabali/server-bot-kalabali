@@ -27,8 +27,6 @@ Router.get('/calendar', async(ctx) => {
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
         ctx.request.body.events.map(async e => {
-            console.log(e)
-
             if(e.message.text == 'hari ini'){
                 const now = await moment().tz("Asia/Makassar");
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
@@ -404,6 +402,15 @@ Router.post('/callback', async(ctx) => {
                   }
 
                   return client.replyMessage(e.replyToken, echo);
+            } 
+            else if(e.type == 'postback') {
+              if(e.postback.data == 'DATE'){
+                let date = moment(e.postback.params.date, "DD-MM-YYYY")
+                console.log(date)
+              }
+            }
+            else {
+              console.log("Tidak ada")
             }
         })
     )
