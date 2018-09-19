@@ -39,7 +39,7 @@ async function getCalendar (date) {
                 },
                 {
                 "type": "text",
-                "text": now.format('DD MMMM YYYY'),
+                "text": date.format('DD MMMM YYYY'),
                 "weight": "bold",
                 "size": "xl",
                 "margin": "md"
