@@ -30,7 +30,7 @@ Router.post('/callback', async(ctx) => {
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
                  console.log(e.postback.params.date)
-                 let date = moment(e.postback.params.date, "DD-MM-YYYY")
+                 let date = moment(e.postback.params.date)
                  const echo = await calendar(date);
                  ctx.body = echo;
                  return client.replyMessage(e.replyToken, echo);
