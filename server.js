@@ -30,7 +30,7 @@ Router.post('/callback', async(ctx) => {
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
                  let date = moment(e.postback.params.date, "DD-MM-YYYY")
-                 console.log(date)
+                 console.log(date.format('MM'))
                }
             } else if(e.type == 'message'){
                 if(e.message.text == 'hari ini'){
