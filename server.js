@@ -44,7 +44,7 @@ Router.post('/callback', async(ctx) => {
                         "type": "bubble",
                         "hero": {
                             "type": "image",
-                            "url": body.details.day.day_name.image,
+                            "url": body.details.image,
                             "size": "full",
                             "aspectRatio": "20:13",
                             "aspectMode": "fit"
