@@ -27,6 +27,8 @@ Router.get('/calendar', async(ctx) => {
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
         ctx.request.body.events.map(async e => {
+            console.log(e)
+
             if(e.message.text == 'hari ini'){
                 const now = await moment().tz("Asia/Makassar");
                 console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${now.format('MM')}&tahun=${now.format('YYYY')}&tanggal=${now.format('DD')}`)
@@ -391,19 +393,17 @@ Router.post('/callback', async(ctx) => {
             } else if(e.message.text == 'pilih hari'){
                 const echo = {
                     type: 'template',
-                    altText: 'Datetime pickers alt text',
+                    altText: 'Memilih hari',
                     template: {
                       type: 'buttons',
-                      text: 'Select date / time !',
+                      text: 'Klik disini untuk memilih',
                       actions: [
-                        { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' },
-                        { type: 'datetimepicker', label: 'time', data: 'TIME', mode: 'time' },
-                        { type: 'datetimepicker', label: 'datetime', data: 'DATETIME', mode: 'datetime' },
+                        { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' }
                       ],
                     },
                   }
 
-                 return client.replyMessage(e.replyToken, echo);
+                  return client.replyMessage(e.replyToken, echo);
             }
         })
     )
