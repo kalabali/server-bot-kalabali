@@ -45,9 +45,9 @@ Router.post('/callback', async(ctx) => {
                       altText: 'Memilih hari',
                       template: {
                         type: 'buttons',
-                        text: 'Klik disini untuk memilih',
+                        text: 'Pilih Hari',
                         actions: [
-                          { type: 'datetimepicker', label: 'date', data: 'DATE', mode: 'date' }
+                          { type: 'datetimepicker', label: 'Klik Disini', data: 'DATE', mode: 'date' }
                         ],
                       },
                     }
