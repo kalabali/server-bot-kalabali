@@ -34,7 +34,7 @@ Router.post('/callback', async(ctx) => {
                }
             } else if(e.type == 'message'){
                 if(e.message.text == 'hari ini'){
-                  const now = await moment().tz("Asia/Makassar");
+                  const date = await moment().tz("Asia/Makassar");
                   const echo = await calendar(date);
                   ctx.body = echo;
                   return client.replyMessage(e.replyToken, echo);
