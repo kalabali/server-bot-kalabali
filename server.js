@@ -29,6 +29,7 @@ Router.post('/callback', async(ctx) => {
         ctx.request.body.events.map(async e => {
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
+                 console.log(e.postback.params.date)
                  let date = moment(e.postback.params.date, "DD-MM-YYYY")
                  const echo = await calendar(date);
                  ctx.body = echo;
