@@ -2,7 +2,6 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
-const cache = require('memory-cache')
 const calendar = require('./service/calendar')
 
 require('dotenv').config()
