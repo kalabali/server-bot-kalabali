@@ -2,6 +2,7 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
+const cache = require('memory-cache')
 const calendar = require('./service/calendar')
 
 require('dotenv').config()
@@ -39,11 +40,25 @@ Router.post('/callback', async(ctx) => {
                  return client.replyMessage(e.replyToken, echo);
                }
             } else if(e.type == 'message'){
-                if(e.message.text == 'hari ini'){
+                //checking interaction
+                if(e.message.text == "#hariini"){
+                    let replies = [];
+                    replies.push({
+                        type: "text",
+                        text: "#hariini adalah menu untuk menampilkan detail suatu hari seperti event, wuku, sasih, dll"
+                    })
+                    replies.push({
+                        type: "sticker",
+                        packageId: 2,
+                        stickerId: 161
+                    })
+                    return client.replyMessage(e.replyToken, replies);     
+                }
+                else if(e.message.text == 'hari ini'){
                   const date = await moment().tz("Asia/Makassar");
                   const echo = await calendar(date);
                   ctx.body = echo;
-                  return client.replyMessage(e.replyToken, echo);
+                  return client.replyMessage(e.replyToken, echo);   
 
               } else if(e.message.text == 'pilih hari'){
                   const echo = {
