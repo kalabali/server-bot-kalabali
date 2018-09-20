@@ -27,6 +27,9 @@ Router.get('/calendar', async(ctx) => {
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
         ctx.request.body.events.map(async e => {
+            console.log({
+                events: e
+            })
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
                  console.log(e.postback.params.date)
