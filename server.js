@@ -30,8 +30,12 @@ Router.post('/callback', async(ctx) => {
         ctx.request.body.events.map(async e => {
             console.log({
                 events: e
-            })
+            })            
             let response = handle.incoming(e);
+            memCache.put(
+                e.source.userId,
+                e.message.text
+            )
             return client.replyMessage(e.replyToken, response);
         })
     )
