@@ -32,6 +32,17 @@ Router.post('/callback', async(ctx) => {
             })
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
+                let replies = [];
+                    replies.push({
+                        type: "sticker",
+                        packageId: 2,
+                        stickerId: 161
+                    })
+                    replies.push({
+                        type: "text",
+                        text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                    })                 
+                pushPenanggal(e.source.userId, replies); 
                  console.log(e.postback.params.date)
                  let date = moment(e.postback.params.date)
                  const echo = await calendar(date);
