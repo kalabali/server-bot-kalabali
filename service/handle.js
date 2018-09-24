@@ -21,5 +21,5 @@ function incoming(event){
 }
 
 module.exports = {
-    handle
+    incoming
 }
