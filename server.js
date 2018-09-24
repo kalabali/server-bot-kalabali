@@ -3,8 +3,7 @@ const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
 const calendar = require('./service/calendar')
-const handle = require('./service/handle')
-const memCache = require('memory-cache')
+const memCache = require('memory-cache');
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
@@ -30,18 +29,60 @@ Router.post('/callback', async(ctx) => {
         ctx.request.body.events.map(async e => {
             console.log({
                 events: e
-            })            
-            let response = handle.incoming(e);
-            memCache.put(
-                e.source.userId,
-                e.message.text
-            )
-            return client.replyMessage(e.replyToken, response);
+            })
+            if(e.type == 'postback') {
+               if(e.postback.data == 'DATE'){
+                 console.log(e.postback.params.date)
+                 let date = moment(e.postback.params.date)
+                 const echo = await calendar(date);
+                 ctx.body = echo;
+                 return client.replyMessage(e.replyToken, echo);
+               }
+            } else if(e.type == 'message'){
+                //checking interaction
+                if(e.message.text == "#hariini"){
+                    let replies = [];
+                    replies.push({
+                        type: "text",
+                        text: "#hariini adalah menu untuk menampilkan detail suatu hari seperti event, wuku, sasih, dll"
+                    })
+                    replies.push({
+                        type: "sticker",
+                        packageId: 2,
+                        stickerId: 161
+                    })
+                    return client.replyMessage(e.replyToken, replies);     
+                }
+                else if(e.message.text == 'hari ini'){
+                  const date = await moment().tz("Asia/Makassar");
+                  const echo = await calendar(date);
+                  ctx.body = echo;
+                  return client.replyMessage(e.replyToken, echo);   
+
+              } else if(e.message.text == 'pilih hari'){
+                  const echo = {
+                      type: 'template',
+                      altText: 'Memilih hari',
+                      template: {
+                        type: 'buttons',
+                        text: 'Pilih Hari',
+                        actions: [
+                          { type: 'datetimepicker', label: 'Klik Disini', data: 'DATE', mode: 'date' }
+                        ],
+                      },
+                    }
+
+                    return client.replyMessage(e.replyToken, echo);
+              } else {
+                console.log("Tidak ada")
+              }
+            }
         })
     )
     .then(all => {
         console.log(all)
-    })    
+    })
+    //ctx.body = await Promise.all(results.map(result => result.json()))
 })
 
 // event handler

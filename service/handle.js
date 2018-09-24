@@ -4,11 +4,11 @@ const command = [
     "#detailhari"
 ]
 function incoming(event){
-    let response;
+    let response = [];
     if(event.type === 'message' || event.message.type === 'text'){
         if(event.message.text.indexOf("#") !== -1 && command.indexOf(event.message.text) !== -1){ //check if user imputting available command
            if(event.message.text === "#detailhari"){
-                response = {
+                response.push({
                     type: 'template',
                     altText: "Detail Hari",
                     template: {
@@ -28,15 +28,15 @@ function incoming(event){
                              }
                         ]
                     }                    
-                }
+                })
            }
         }
         else{
             if(event.message.text === "hari ini"){
-                response = {
+                response.push({
                     type: 'text',
                     text: "samlekum"
-                }
+                })
             }
         }
         console.log({
