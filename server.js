@@ -80,12 +80,8 @@ Router.post('/callback', async(ctx) => {
                         type: "text",
                         text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
                     })
+                    pushPenanggal(e.source.userId);   
                     return client.replyMessage(e.replyToken, replies);   
-                    const date = await moment().tz("Asia/Makassar");
-                    const echo = await calendar(date);
-                    // ctx.body = echo;
-                    pushPenanggal(e.source.userId, echo);                    
-
               } else if(e.message.text == 'pilih hari'){
                   const echo = {
                       type: 'template',
@@ -127,8 +123,13 @@ function handleEvent(event) {
   }
 
 
-function pushPenanggal(userId, message){
-    client.pushMessage(userId, message);
+function pushPenanggal(userId){
+    console.log({
+        userId        
+    })
+    const date = await moment().tz("Asia/Makassar");
+    const echo = await calendar(date);
+    client.pushMessage(userId, echo);
 }
 //app.use(Line.middleware(config))
 app.use(Router.routes())
