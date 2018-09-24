@@ -13,7 +13,7 @@ function incoming(event){
                     altText: "Detail Hari",
                     template: {
                         type: "buttons",
-                        text: "Detail hari (#detailhari) adalah menu untuk mengetahui informasi lebih lanjut pada tanggal tertentu seperti, event, wuku, sasih, dll. Ayo mulai cari tahu informasi yang kamu inginkan mulai dari hari ini atau langsung ke tanggal yang ingin kamu kepoin.",
+                        text: "monkas",
                         actions: [
                             {
                                 type: "message",
