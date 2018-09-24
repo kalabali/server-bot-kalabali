@@ -79,11 +79,11 @@ Router.post('/callback', async(ctx) => {
                     replies.push({
                         type: "text",
                         text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
-                    })                    
+                    })                 
+                    pushPenanggal(e.source.userId, replies);   
                     const date = await moment().tz("Asia/Makassar");
                     const echo = await calendar(date);
-                    // ctx.body = echo;
-                    pushPenanggal(e.source.userId, replies);                    
+                    // ctx.body = echo;                                        
                     return client.replyMessage(e.replyToken, echo);   
 
               } else if(e.message.text == 'pilih hari'){
