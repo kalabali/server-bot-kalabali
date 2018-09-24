@@ -3,7 +3,8 @@ const bodyParser = require('koa-bodyparser')
 const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
 const calendar = require('./service/calendar')
-
+const handle = require('./service/handle')
+const memCache = require('memory-cache')
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
@@ -30,56 +31,13 @@ Router.post('/callback', async(ctx) => {
             console.log({
                 events: e
             })
-            if(e.type == 'postback') {
-               if(e.postback.data == 'DATE'){
-                 console.log(e.postback.params.date)
-                 let date = moment(e.postback.params.date)
-                 const echo = await calendar(date);
-                 ctx.body = echo;
-                 return client.replyMessage(e.replyToken, echo);
-               }
-            } else if(e.type == 'message'){
-                //checking interaction
-                if(e.message.text == "#hariini"){
-                    let replies = [];
-                    replies.push({
-                        type: "text",
-                        text: "#hariini adalah menu untuk menampilkan detail suatu hari seperti event, wuku, sasih, dll"
-                    })
-                    replies.push({
-                        type: "sticker",
-                        packageId: 2,
-                        stickerId: 161
-                    })
-                    return client.replyMessage(e.replyToken, replies);     
-                }
-                else if(e.message.text == 'hari ini'){
-                  const date = await moment().tz("Asia/Makassar");
-                  const echo = await calendar(date);
-                  ctx.body = echo;
-                  return client.replyMessage(e.replyToken, echo);   
-
-              } else if(e.message.text == 'pilih hari'){
-                  const echo = {
-                      type: 'template',
-                      altText: 'Memilih hari',
-                      template: {
-                        type: 'buttons',
-                        text: 'Pilih Hari',
-                        actions: [
-                          { type: 'datetimepicker', label: 'Klik Disini', data: 'DATE', mode: 'date' }
-                        ],
-                      },
-                    }
-
-                    return client.replyMessage(e.replyToken, echo);
-              } else {
-                console.log("Tidak ada")
-              }
-            }
+            let response = handle.incoming(e);
+            return client.replyMessage(e.replyToken, response);
         })
     )
-    //ctx.body = await Promise.all(results.map(result => result.json()))
+    .then(all => {
+        console.log(all)
+    })    
 })
 
 // event handler
@@ -93,13 +51,7 @@ function handleEvent(event) {
         const details = request.get(`https://kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
         const echo = { type: 'text', text: details.body.details.sasih }
         return client.replyMessage(event.replyToken, echo);
-    }
-  
-    // // create a echoing text message
-    // const echo = { type: 'text', text: event.message.text };
-  
-    // // use reply API
-    // return client.replyMessage(event.replyToken, echo);
+    }  
   }
 
 //app.use(Line.middleware(config))
