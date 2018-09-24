@@ -40,24 +40,51 @@ Router.post('/callback', async(ctx) => {
                }
             } else if(e.type == 'message'){
                 //checking interaction
-                if(e.message.text == "#hariini"){
+                if(e.message.text == "#penanggal"){
                     let replies = [];
                     replies.push({
                         type: "text",
-                        text: "#hariini adalah menu untuk menampilkan detail suatu hari seperti event, wuku, sasih, dll"
+                        text: "Penanggal adalah menu untuk mengetahui informasi lebih lanjut pada tanggal tertentu seperti, event, wuku, sasih, dll. Ayo mulai cari tahu informasi yang kamu inginkan mulai dari hari ini atau langsung ke tanggal yang ingin kamu kepoin."
                     })
+                    replies.push({
+                        type: 'template',
+                        altText: "Detail Hari",
+                        template: {
+                            type: "buttons",
+                            text: "Kakak mau kepoin yang mana?",
+                            actions: [
+                                {
+                                    type: "message",
+                                    label: "Hari ini",
+                                    text: "hari ini"
+                                },
+                                {  
+                                    "type":"datetimepicker",
+                                    "label":"Pilih Tanggal",
+                                    "data":"DATE",
+                                    "mode":"date"
+                                 }
+                            ]
+                        }                    
+                    })                   
+                    return client.replyMessage(e.replyToken, replies);     
+                }
+                else if(e.message.text == 'hari ini'){
+                    let replies = [];
                     replies.push({
                         type: "sticker",
                         packageId: 2,
                         stickerId: 161
                     })
-                    return client.replyMessage(e.replyToken, replies);     
-                }
-                else if(e.message.text == 'hari ini'){
-                  const date = await moment().tz("Asia/Makassar");
-                  const echo = await calendar(date);
-                  ctx.body = echo;
-                  return client.replyMessage(e.replyToken, echo);   
+                    replies.push({
+                        type: "text",
+                        text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                    })
+                    return client.replyMessage(e.replyToken, replies);   
+                    const date = await moment().tz("Asia/Makassar");
+                    const echo = await calendar(date);
+                    // ctx.body = echo;
+                    pushPenanggal(e.source.userId, echo);                    
 
               } else if(e.message.text == 'pilih hari'){
                   const echo = {
@@ -99,6 +126,10 @@ function handleEvent(event) {
     }  
   }
 
+
+function pushPenanggal(userId, message){
+    client.pushMessage(userId, message);
+}
 //app.use(Line.middleware(config))
 app.use(Router.routes())
 
