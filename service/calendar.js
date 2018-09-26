@@ -4,7 +4,7 @@ async function getCalendar (date) {
     console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
-    var events = ""
+    var events = "Tidak ada"
     if(body.details.events.length > 0){
         console.log(body.details.events.length)
         events = body.details.events.map(e => e.event_name).join(',')
@@ -38,18 +38,18 @@ async function getCalendar (date) {
                 "size": "sm"
                 },
                 {
-                "type": "text",
-                "text": date.format('DD MMMM YYYY'),
-                "weight": "bold",
-                "size": "xl",
-                "margin": "md"
+                    "type": "text",
+                    "text": date.format('DD MMMM YYYY'),
+                    "weight": "bold",
+                    "size": "xl",
+                    "margin": "md"
                 },
                 {
-                "type": "text",
-                "text": "Events : " + events,
-                "size": "xs",
-                "color": "#aaaaaa",
-                "wrap": true
+                    "type": "text",
+                    "text": "Hari Raya / Peringatan : " + (events.length > 0),
+                    "size": "xs",
+                    "color": "#aaaaaa",
+                    "wrap": true
                 },
                 {
                 "type": "separator",
