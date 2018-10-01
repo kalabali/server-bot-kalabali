@@ -46,7 +46,7 @@ async function getCalendar (date) {
                 },
                 {
                     "type": "text",
-                    "text": "Hari Raya / Peringatan : " + (events.length > 0),
+                    "text": "Hari Raya / Peringatan : " + events,
                     "size": "xs",
                     "color": "#aaaaaa",
                     "wrap": true
@@ -358,5 +358,10 @@ async function getCalendar (date) {
         }
     }
 }
-
-module.exports = getCalendar
+async function getMonthCalendar (date) {
+    const details = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+}
+module.exports = {
+    getCalendar,
+    getMonthCalendar
+}

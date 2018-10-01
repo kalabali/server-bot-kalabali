@@ -4,6 +4,7 @@ const Router = require('koa-router')()
 const Line = require('@line/bot-sdk')
 const calendar = require('./service/calendar')
 const dateValidator = require("./utils/date-validator")
+const utils = require("./service/utils")
 // const memCache = require('memory-cache');
 require('dotenv').config()
 const app = new Koa()
@@ -84,6 +85,9 @@ Router.post('/callback', async(ctx) => {
                 else if(e.message.text.toLowerCase().substr(0,9) == "penanggal" && e.message.text.length > 9){
                     let message = e.message.text.toLowerCase().substr(9).trim()
                     message = message.split(" ");
+                    console.log({
+                        message
+                    })
                     let replies = [];
                     if(`${message[1]} ${message[2]}` == "hari ini"){
                         replies.push({
@@ -132,20 +136,14 @@ Router.post('/callback', async(ctx) => {
                         }                          
                         
                     }
-              } else if(e.message.text == 'pilih hari'){
-                  const echo = {
-                      type: 'template',
-                      altText: 'Memilih hari',
-                      template: {
-                        type: 'buttons',
-                        text: 'Pilih Hari',
-                        actions: [
-                          { type: 'datetimepicker', label: 'Klik Disini', data: 'DATE', mode: 'date' }
-                        ],
-                      },
-                    }
+              } else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
+                  const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");
+                  const bulanIndex = remainM.findIndex(m => {
+                      return utils.getMonthIndex(m) !== -1
+                  })
+                  console.log({bulanIndex});
+                  return bingung(e.replyToken);  
 
-                    return client.replyMessage(e.replyToken, echo);
               } else {                
                 return bingung(e.replyToken);
               }
