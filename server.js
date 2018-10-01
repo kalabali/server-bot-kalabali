@@ -20,7 +20,7 @@ const client = new Line.Client(config)
 
 Router.get('/calendar', async(ctx) => {
     //ctx.body = "a"
-    //const a =  await koa2Req(`https://https://dev-kalender-bali.herokuapp.com/.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+    //const a =  await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
     const b = await moment().tz("Asia/Makassar");
     ctx.body = b.format('DD')
 })
@@ -180,7 +180,7 @@ function handleEvent(event) {
     }
 
     if(event.message.text == 'hari ini') {
-        const details = request.get(`https://https://dev-kalender-bali.herokuapp.com/.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+        const details = request.get(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
         const echo = { type: 'text', text: details.body.details.sasih }
         return client.replyMessage(event.replyToken, echo);
     }  
