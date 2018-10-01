@@ -360,8 +360,10 @@ async function getCalendar (date) {
     }
 }
 async function getMonthCalendar (date) {
+    console.log(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    const body = JSON.parse(response.body)
+    console.log({response})
+    const body = response.body
     let replies = [];
     replies.push({
             type: "image",
