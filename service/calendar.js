@@ -1,8 +1,8 @@
 const koa2Req = require('koa2-request')
 
 async function getCalendar (date) {
-    console.log(`https://kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
-    const details = await koa2Req(`https://kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    console.log(`https://https://dev-kalender-bali.herokuapp.com/.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    const details = await koa2Req(`https://https://dev-kalender-bali.herokuapp.com/.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
     var events = ""
     if(body.details.events.length > 0){
