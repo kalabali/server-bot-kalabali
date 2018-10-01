@@ -138,7 +138,10 @@ Router.post('/callback', async(ctx) => {
                     }
               } else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
                   const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
-                  const echo = await calendar.getMonthCalendar({bulan: remainM[0],tahun: remainM[1]});  
+                  const echo = await calendar.getMonthCalendar({
+                      bulan: utils.getMonthIndex(remainM[0]),
+                      tahun: remainM[1]
+                    });  
                   return client.replyMessage(e.replyToken, echo);                                 
 
               } else {                
