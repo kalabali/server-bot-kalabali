@@ -1,4 +1,5 @@
 const koa2Req = require('koa2-request')
+const utils = require("./utils")
 
 async function getCalendar (date) {
     console.log(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
@@ -359,7 +360,25 @@ async function getCalendar (date) {
     }
 }
 async function getMonthCalendar (date) {
-    const details = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    const body = JSON.parse(response.body)
+    let replies = [];
+    replies.push({
+            type: "image",
+            originalContentUrl: body.calendar.image.full,
+            previewImageUrl: body.calendar.image.preview
+    })
+    let message = `
+    Pada bulan ${utils.getMonthName(date.month)} terdapat\n
+    • ${body.calendar.raws.rerainan.length} hari rerainan
+    • ${body.calendar.raws.peringatan} hari peringatan, dan
+    • ${body.calendar.raws.libur_nasional} hari libur nasional
+    `;
+    replies.push({
+        type: "text",
+        text: message
+    })
+    return replies;
 }
 module.exports = {
     getCalendar,

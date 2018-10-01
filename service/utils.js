@@ -38,6 +38,26 @@ function getMonthIndex(month){
     return -1;
 }
 
+function getMonthName(month){
+    const months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "Nopember",
+        "Desember"
+    ];
+    
+    return months[month - 1] !== undefined ? months[month - 1] : "";
+}
+
 module.exports = {
-    getMonthIndex
+    getMonthIndex,
+    getMonthName
 }

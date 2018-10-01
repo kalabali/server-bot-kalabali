@@ -47,7 +47,7 @@ Router.post('/callback', async(ctx) => {
                 pushPenanggal(e.source.userId, replies); 
                  console.log(e.postback.params.date)
                  let date = moment(e.postback.params.date)
-                 const echo = await calendar(date);
+                 const echo = await calendar.getCalendar(date);
                  ctx.body = echo;
                  return client.replyMessage(e.replyToken, echo);
                }
@@ -101,7 +101,7 @@ Router.post('/callback', async(ctx) => {
                         })                 
                         pushPenanggal(e.source.userId, replies);  
                         const date = await moment().tz("Asia/Makassar");
-                        const echo = await calendar(date);
+                        const echo = await calendar.getCalendar(date);
                         return client.replyMessage(e.replyToken, echo);
                     }
                     else{                        
@@ -127,7 +127,7 @@ Router.post('/callback', async(ctx) => {
                                 if(message[2].length == 1)
                                     message[2] = `0${message[2]}`;                                
                                 let date = moment(`${message[2]}-${dateValidator.parseMonth(message[1])}-${message[0]}`)                                
-                                const echo = await calendar(date);
+                                const echo = await calendar.getCalendar(date);
                                 return client.replyMessage(e.replyToken, echo);  
                             }
                         }
@@ -137,12 +137,9 @@ Router.post('/callback', async(ctx) => {
                         
                     }
               } else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
-                  const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");
-                  const bulanIndex = remainM.findIndex(m => {
-                      return utils.getMonthIndex(m) !== -1
-                  })
-                  console.log({bulanIndex});
-                  return bingung(e.replyToken);  
+                  const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
+                  const echo = await calendar.getCalendar({bulan: remainM[0],tahun: remainM[1]});  
+                  return client.replyMessage(e.replyToken, echo);                                 
 
               } else {                
                 return bingung(e.replyToken);
