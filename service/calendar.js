@@ -364,6 +364,7 @@ async function getMonthCalendar (date) {
     const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     console.log({response})
     const body = JSON.parse(response.body)
+    console.log(body.calendar.image)
     let replies = [];
     replies.push({
             type: "image",
