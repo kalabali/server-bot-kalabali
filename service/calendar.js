@@ -372,7 +372,7 @@ async function getMonthCalendar (date) {
             previewImageUrl: body.calendar.image.preview
     })
     let message = `
-    Pada bulan ${utils.getMonthName(date.month)} terdapat\n
+    Pada bulan ${utils.getMonthName(date.bulan)} terdapat\n
     • ${body.calendar.raws.rerainan.length} hari rerainan\n
     • ${body.calendar.raws.peringatan.length} hari peringatan, dan\n
     • ${body.calendar.raws.libur_nasional.length} hari libur nasional
