@@ -373,9 +373,9 @@ async function getMonthCalendar (date) {
     })
     let message = `
     Pada bulan ${utils.getMonthName(date.month)} terdapat\n
-    • ${body.calendar.raws.rerainan.length} hari rerainan
-    • ${body.calendar.raws.peringatan} hari peringatan, dan
-    • ${body.calendar.raws.libur_nasional} hari libur nasional
+    • ${body.calendar.raws.rerainan.length} hari rerainan\n
+    • ${body.calendar.raws.peringatan.length} hari peringatan, dan\n
+    • ${body.calendar.raws.libur_nasional.length} hari libur nasional
     `;
     replies.push({
         type: "text",
