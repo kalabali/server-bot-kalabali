@@ -1,0 +1,18 @@
+{
+    "apps" : [
+        {
+          "name"        : "koa2-kala-app",
+          "script"      : "server.js",
+          "watch"       : false,
+          "merge_logs"  : true,
+          "log_date_format": "YYYY-MM-DD HH:mm Z",
+          "env": {
+            "NODE_ENV": "production",
+            "PORT": 3000
+          },
+          "instances": 2,
+          "exec_mode"  : "cluster_mode",
+          "autorestart": true
+        }
+    ]
+  }
