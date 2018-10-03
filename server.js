@@ -19,6 +19,11 @@ const config = {
 
 const client = new Line.Client(config)
 
+Router.get('/', async(ctx) => {
+    console.log(process.env.channelAccessToken)
+    ctx.body = "Om Shanti, shanti, shanti"
+})
+
 Router.get('/calendar', async(ctx) => {
     //ctx.body = "a"
     //const a =  await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
