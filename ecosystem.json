@@ -1,7 +1,7 @@
 {
     "apps" : [
         {
-          "name"        : "koa2-kala-app",
+          "name"        : "kala-line-bot",
           "script"      : "server.js",
           "watch"       : false,
           "merge_logs"  : true,
