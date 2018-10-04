@@ -9,9 +9,9 @@ async function getCalendar (date) {
     var fileName = ''
     const options = {
         url: body.details.image,
-        dest: '../public/calendar'                  // Save to /path/to/dest/image.jpg
+        dest: '/public/calendar'              // Save to /path/to/dest/image.jpg
     }
-
+    console.log("sampe sini")
     async function downloadIMG() {
         try {
             const { filename, image } = await download.image(options)
@@ -36,7 +36,7 @@ async function getCalendar (date) {
             "type": "bubble",
             "hero": {
                 "type": "image",
-                "url": fileName,
+                "url": "https://www.bali.com/media/image/663/best-resorts-bali.jpg",
                 "size": "full",
                 "aspectRatio": "20:13",
                 "aspectMode": "fit"
