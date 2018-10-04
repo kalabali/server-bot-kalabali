@@ -6,8 +6,10 @@ async function getCalendar (date) {
     console.log(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const details = await koa2Req(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
+
+    var filename = body.details.image.substring(url.lastIndexOf('/')+1);
     // Async with promises:
-    fs.copy('/root/vhost/api-kalender-bali/public/calendar/cal-10Oktober2018.jpg', '/root/vhost/server-bot-kalabali/public/calendar/cal-10Oktober2018.jpg')
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar/'+filename, '/root/vhost/server-bot-kalabali/public/calendar/'+filename)
         .then(() => console.log('success!'))
         .catch(err => console.error(err))
 
@@ -23,7 +25,7 @@ async function getCalendar (date) {
             "type": "bubble",
             "hero": {
                 "type": "image",
-                "url": "https://www.bali.com/media/image/663/best-resorts-bali.jpg",
+                "url": "https://www.kalabali.com/calendar/"+filename,
                 "size": "full",
                 "aspectRatio": "20:13",
                 "aspectMode": "fit"
