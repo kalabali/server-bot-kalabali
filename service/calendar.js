@@ -1,10 +1,29 @@
 const koa2Req = require('koa2-request')
 const utils = require("./utils")
+const download = require('image-downloader')
 
 async function getCalendar (date) {
     console.log(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const details = await koa2Req(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
+    var fileName = ''
+    const options = {
+        url: body.details.image,
+        dest: '../public/calendar'                  // Save to /path/to/dest/image.jpg
+    }
+
+    async function downloadIMG() {
+        try {
+            const { filename, image } = await download.image(options)
+            fileName = filename
+            console.log(filename) // => /path/to/dest/image.jpg 
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    
+    downloadIMG()
+
     var events = "Tidak ada"
     if(body.details.events.length > 0){
         console.log(body.details.events.length)
@@ -17,7 +36,7 @@ async function getCalendar (date) {
             "type": "bubble",
             "hero": {
                 "type": "image",
-                "url": body.details.image,
+                "url": fileName,
                 "size": "full",
                 "aspectRatio": "20:13",
                 "aspectMode": "fit"

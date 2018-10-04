@@ -24,6 +24,7 @@ render(app, {
 });
 
 app.use(serve(__dirname + '/view'));
+app.use(serve(__dirname + '/public'));
 
 const config = {
     channelAccessToken : process.env.channelAccessToken || "",
