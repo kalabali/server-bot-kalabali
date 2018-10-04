@@ -1,28 +1,15 @@
 const koa2Req = require('koa2-request')
 const utils = require("./utils")
-const download = require('image-downloader')
+const fs = require('fs-extra')
 
 async function getCalendar (date) {
     console.log(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const details = await koa2Req(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
-    var fileName = ''
-    const options = {
-        url: body.details.image,
-        dest: '/public/calendar'              // Save to /path/to/dest/image.jpg
-    }
-    console.log("sampe sini")
-    async function downloadIMG() {
-        try {
-            const { filename, image } = await download.image(options)
-            fileName = filename
-            console.log(filename) // => /path/to/dest/image.jpg 
-        } catch (e) {
-            console.error(e)
-        }
-    }
-    
-    downloadIMG()
+    // Async with promises:
+    fs.copy('~/vhost/api-kalender-bali/public/calendar/cal-10Oktober2018.jpg', '~/vhost/server-bot-kalabali/public/calendar')
+        .then(() => console.log('success!'))
+        .catch(err => console.error(err))
 
     var events = "Tidak ada"
     if(body.details.events.length > 0){

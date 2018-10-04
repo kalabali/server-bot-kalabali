@@ -6,7 +6,7 @@
   "dependencies": {
     "@line/bot-sdk": "^6.2.1",
     "dotenv": "^6.0.0",
-    "image-downloader": "^3.4.1",
+    "fs-extra": "^7.0.0",
     "koa": "^2.5.3",
     "koa-bodyparser": "^4.2.1",
     "koa-ejs": "^4.1.2",
