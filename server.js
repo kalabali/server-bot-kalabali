@@ -98,7 +98,7 @@ Router.post('/callback', async(ctx) => {
                     })                   
                     return client.replyMessage(e.replyToken, replies);     
                 }
-                else if(e.message.text.toLowerCase().indexOf("hari ini")){
+                else if(e.message.text.toLowerCase().indexOf("hari ini") != -1){
                     const date = await moment().tz("Asia/Makassar");
                     const echo = await calendar.getCalendar(date);
                     return client.replyMessage(e.replyToken, echo);
