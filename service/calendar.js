@@ -7,7 +7,7 @@ async function getCalendar (date) {
     const details = await koa2Req(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
 
-    var filename = body.details.image.substring(url.lastIndexOf('/')+1);
+    var filename = body.details.image.substring(body.details.image.lastIndexOf('/')+1);
     // Async with promises:
     fs.copy('/root/vhost/api-kalender-bali/public/calendar/'+filename, '/root/vhost/server-bot-kalabali/public/calendar/'+filename)
         .then(() => console.log('success!'))
