@@ -43,7 +43,7 @@ async function getCalendar (date) {
                 "type": "text",
                 "text": "Kalender Bali",
                 "weight": "bold",
-                "color": "#1DB446",
+                "color": "#d83d43",
                 "size": "sm"
                 },
                 {

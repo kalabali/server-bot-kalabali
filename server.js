@@ -38,10 +38,7 @@ Router.get('/', async(ctx) => {
 })
 
 Router.get('/calendar', async(ctx) => {
-    //ctx.body = "a"
-    //const a =  await koa2Req(`http://kalabali.com:4000/v1/details?bulan=9&tahun=2018&tanggal=14`)
-    const b = await moment().tz("Asia/Makassar");
-    ctx.body = b.format('DD')
+    ctx.body = "Calendar"
 })
 
 Router.post('/callback', async(ctx) => {
@@ -71,6 +68,7 @@ Router.post('/callback', async(ctx) => {
                }
             } else if(e.type == 'message'){
                 //checking interaction
+                // Fitur 1 Penanggal
                 if(e.message.text.toLowerCase() == "penanggal" && e.message.text.length == 9){
                     let replies = [];
                     replies.push({
@@ -99,6 +97,21 @@ Router.post('/callback', async(ctx) => {
                         }                    
                     })                   
                     return client.replyMessage(e.replyToken, replies);     
+                }
+                else if(e.message.text.toLowerCase() == "hari ini"){
+                    replies.push({
+                        type: "sticker",
+                        packageId: 2,
+                        stickerId: 161
+                    })
+                    replies.push({
+                        type: "text",
+                        text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                    })                 
+                    pushPenanggal(e.source.userId, replies);  
+                    const date = await moment().tz("Asia/Makassar");
+                    const echo = await calendar.getCalendar(date);
+                    return client.replyMessage(e.replyToken, echo);
                 }
                 else if(e.message.text.toLowerCase().substr(0,9) == "penanggal" && e.message.text.length > 9){
                     let message = e.message.text.toLowerCase().substr(9).trim()
