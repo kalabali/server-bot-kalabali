@@ -2,8 +2,8 @@ const koa2Req = require('koa2-request')
 const utils = require("./utils")
 
 async function getCalendar (date) {
-    console.log(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
-    const details = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    console.log(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    const details = await koa2Req(`http://kalabali.com:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
     var events = "Tidak ada"
     if(body.details.events.length > 0){
@@ -360,8 +360,8 @@ async function getCalendar (date) {
     }
 }
 async function getMonthCalendar (date) {
-    console.log(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    console.log(`http://kalabali.com:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    const response = await koa2Req(`http://kalabali.com:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     console.log({response})
     const body = JSON.parse(response.body)
     console.log(body.calendar.image)

@@ -5,12 +5,25 @@ const Line = require('@line/bot-sdk')
 const calendar = require('./service/calendar')
 const dateValidator = require("./utils/date-validator")
 const utils = require("./service/utils")
+const render = require('koa-ejs');
+const path = require('path');
+const serve = require('koa-static');
 // const memCache = require('memory-cache');
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
 
 var moment = require('moment-timezone');
+
+render(app, {
+    root: path.join(__dirname, 'view'),
+    layout: 'index',
+    viewExt: 'html',
+    cache: false,
+    debug: false
+});
+
+app.use(serve(__dirname + '/view'));
 
 const config = {
     channelAccessToken : process.env.channelAccessToken || "",
@@ -20,13 +33,12 @@ const config = {
 const client = new Line.Client(config)
 
 Router.get('/', async(ctx) => {
-    console.log(process.env.channelAccessToken)
-    ctx.body = "Om Shanti, shanti, shanti"
+    await ctx.render('index');
 })
 
 Router.get('/calendar', async(ctx) => {
     //ctx.body = "a"
-    //const a =  await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+    //const a =  await koa2Req(`http://kalabali.com:4000/v1/details?bulan=9&tahun=2018&tanggal=14`)
     const b = await moment().tz("Asia/Makassar");
     ctx.body = b.format('DD')
 })
@@ -183,7 +195,7 @@ function handleEvent(event) {
     }
 
     if(event.message.text == 'hari ini') {
-        const details = request.get(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=9&tahun=2018&tanggal=14`)
+        const details = request.get(`http://kalabali.com:4000/v1/details?bulan=9&tahun=2018&tanggal=14`)
         const echo = { type: 'text', text: details.body.details.sasih }
         return client.replyMessage(event.replyToken, echo);
     }  
