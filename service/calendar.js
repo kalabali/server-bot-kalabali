@@ -402,7 +402,7 @@ async function getMonthCalendar (date) {
 async function getRerainan (rerainan, date) {
     const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
     const body = JSON.parse(response.body)
-    if(body.result.length == 0){
+    if(body.results.length == 0){
         return "Tidak ada rerainan terdekat"
     } else {
 
