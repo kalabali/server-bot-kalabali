@@ -453,6 +453,8 @@ async function getRerainan (rerainan, date, type) {
           ]
           
         body.results.forEach(element => {
+            if(parseInt(element.query.month) > parseInt(date.format('MM'))){
+
             var events = [
             {
                 "type": "text",
@@ -502,6 +504,7 @@ async function getRerainan (rerainan, date, type) {
                 "contents": events
               },
             )
+          }
         });
 
         var result = {
