@@ -195,6 +195,7 @@ Router.post('/callback', async(ctx) => {
               } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
                     if(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 3)){
                         const date = await moment().tz("Asia/Makassar");
+                        console.log(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 2))
                         const echo = await calendar.getRerainan(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 2),date,'all')
                         return client.replyMessage(e.replyToken, echo)
                     } else {
