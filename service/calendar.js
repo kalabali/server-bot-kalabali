@@ -409,7 +409,7 @@ async function getRerainan (rerainan, date) {
         var arrayRes = [
             {
               "type": "text",
-              "text": "Kuningan Terdekat",
+              "text": rerainan + " Terdekat",
               "weight": "bold",
               "color": "#d83d43",
               "size": "lg"
@@ -418,17 +418,13 @@ async function getRerainan (rerainan, date) {
               "type": "separator",
               "margin": "xxl"
             },
-            {
-              "type": "separator",
-              "margin": "xxl"
-            }
           ]
           
         body.results.forEach(element => {
             var events = [
             {
                 "type": "text",
-                "text": "5 Okt 2018",
+                "text": element.data.date + " " + element.data.month + " " + element.data.year,
                 "size": "xs",
                 "color": "#aaaaaa",
                 "wrap": true
@@ -449,7 +445,7 @@ async function getRerainan (rerainan, date) {
                       },
                       {
                         "type": "text",
-                        "text": "Kapat",
+                        "text": event.event_name,
                         "wrap": true,
                         "color": "#666666",
                         "size": "sm",
@@ -458,6 +454,13 @@ async function getRerainan (rerainan, date) {
                     ]
                   })
             })
+
+            events.push(
+                {
+                    "type": "separator",
+                    "margin": "xxl"
+                  }
+            )
 
             arrayRes.push({
                 "type": "box",
@@ -471,7 +474,7 @@ async function getRerainan (rerainan, date) {
 
         var result = {
         "type": "flex",
-        "altText": "Kalender Bali - Hari Ini",
+        "altText": "Hasil cari rerainan",
         "contents": 
             {
             "type": "bubble",
