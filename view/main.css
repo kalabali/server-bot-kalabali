@@ -80,3 +80,15 @@ figure.image {
     margin-right: 0.4rem;
     vertical-align: text-bottom;
 }
+
+#tab_container .container_item {
+    display: none;
+  }
+  
+#tab_container .container_item.is-active {
+    display: block;
+}
+.tabs li.is-active a {
+    border-bottom-color: #d83d43;
+    color: #d83d43;
+}
