@@ -187,11 +187,22 @@ Router.post('/callback', async(ctx) => {
               } 
               else if(e.message.text.toLowerCase() == "cari"){
                 
-                
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: "Cari \n Menu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \n Misal ketikkan : Cari Purnama atau Cari Kuningan"
+                }]);
 
-                const date = await moment().tz("Asia/Makassar");
-                const echo = await calendar.getRerainan('tumpek',date,'all')
-                return client.replyMessage(e.replyToken, echo)
+              } else if(e.message.text.toLowerCase().indexOf("cari")){
+                    if(str.substring(str.indexOf(char) + 3)){
+                        const date = await moment().tz("Asia/Makassar");
+                        const echo = await calendar.getRerainan(str.substring(str.indexOf(char) + 2),date,'all')
+                        return client.replyMessage(e.replyToken, echo)
+                    } else {
+                        return client.replyMessage(e.replyToken, [{
+                            type: "text",
+                            text: "Kala belum bisa menemukan hari upacara itu. Hmm, nanti kala cari lagi ya."
+                        }]); 
+                    }
               }
               else {                
                 return bingung(e.replyToken);
