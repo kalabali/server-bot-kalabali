@@ -426,10 +426,11 @@ async function getMonthCalendar (date) {
 // cari rerainan
 
 async function getRerainan (rerainan, date, type) {
+    var response = {}
     if(type == 'all') {
-        const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=all`)
+        response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=all`)
     } else {
-        const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+        response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
     }
     
     const body = JSON.parse(response.body)
