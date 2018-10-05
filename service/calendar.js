@@ -424,7 +424,7 @@ async function getRerainan (rerainan, date) {
             }
           ]
           
-        body.result.forEach(element => {
+        body.results.forEach(element => {
             var events = [
             {
                 "type": "text",
