@@ -157,7 +157,8 @@ Router.post('/callback', async(ctx) => {
                         }                          
                         
                     }
-              } else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
+              } //@fiture kalendar 
+              else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
                   const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
                   let monthIndex = utils.getMonthIndex(remainM[0]);
                   if(monthIndex === -1 || remainM.length < 2){
