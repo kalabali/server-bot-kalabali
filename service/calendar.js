@@ -435,7 +435,10 @@ async function getRerainan (rerainan, date, type) {
     
     const body = JSON.parse(response.body)
     if(body.results.length == 0){
-        return "Tidak ada rerainan"
+        return {
+            type: "text",
+            text: "Tidak ada rerainan"
+        }
     } else {
 
         var arrayRes = [
