@@ -2,6 +2,8 @@ const koa2Req = require('koa2-request')
 const utils = require("./utils")
 const fs = require('fs-extra')
 
+//penanggal
+
 async function getCalendar (date) {
     console.log(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const details = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
@@ -367,6 +369,9 @@ async function getCalendar (date) {
         }
     }
 }
+
+//kalender bulanan
+
 async function getMonthCalendar (date) {
     console.log(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
@@ -404,7 +409,101 @@ async function getMonthCalendar (date) {
     })
     return replies;
 }
+
+// cari rerainan
+
+async function getRerainan (rerainan, date) {
+    const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+    const body = JSON.parse(response.body)
+    if(body.results.length == 0){
+        return "Tidak ada rerainan terdekat"
+    } else {
+
+        var arrayRes = [
+            {
+              "type": "text",
+              "text": "Kuningan Terdekat",
+              "weight": "bold",
+              "color": "#d83d43",
+              "size": "lg"
+            },
+            {
+              "type": "separator",
+              "margin": "xxl"
+            },
+            {
+              "type": "separator",
+              "margin": "xxl"
+            }
+          ]
+          
+        body.results.forEach(element => {
+            var events = [
+            {
+                "type": "text",
+                "text": "5 Okt 2018",
+                "size": "xs",
+                "color": "#aaaaaa",
+                "wrap": true
+              }
+            ]
+            element.data.events.forEach(event => {
+                events.push({
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "Rerainan",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 2
+                      },
+                      {
+                        "type": "text",
+                        "text": "Kapat",
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 5
+                      }
+                    ]
+                  })
+            })
+
+            arrayRes.push({
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": events
+              },
+            )
+        });
+
+        var result = {
+        "type": "flex",
+        "altText": "Kalender Bali - Hari Ini",
+        "contents": 
+            {
+            "type": "bubble",
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": arrayRes
+            }
+          }
+        }
+    
+    console.log(result)
+    return result
+    }
+}
+
+
 module.exports = {
     getCalendar,
-    getMonthCalendar
+    getMonthCalendar,
+    getRerainan
 }

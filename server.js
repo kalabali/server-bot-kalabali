@@ -184,7 +184,12 @@ Router.post('/callback', async(ctx) => {
                         }]);                                     
                       }
                   }
-              } else {                
+              } 
+              else if(e.message.text.toLowerCase() == "cari"){
+                const echo = await calendar.getRerainan(1,2)
+                return client.replyMessage(e.replyToken, echo)
+              }
+              else {                
                 return bingung(e.replyToken);
               }
             }
