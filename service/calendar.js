@@ -397,10 +397,10 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
         }
         if(body.calendar.raws.libur_nasional.length > 0){
-            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 0x100078 0x100078 0x100078\n`;
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 😍 😍 😍'\n`;
         }
         else{
-            message += `• Tidak ada libur nasional nih kak 0x10007C 0x100094`; 
+            message += `• Tidak ada libur nasional nih kak 😭 😭 😭'`; 
         }
     }    
     replies.push({
