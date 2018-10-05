@@ -193,9 +193,9 @@ Router.post('/callback', async(ctx) => {
                 }]);
 
               } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
-                    if(str.substring(str.indexOf(char) + 3)){
+                    if(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf(char) + 3)){
                         const date = await moment().tz("Asia/Makassar");
-                        const echo = await calendar.getRerainan(str.substring(str.indexOf(char) + 2),date,'all')
+                        const echo = await calendar.getRerainan(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf(char) + 2),date,'all')
                         return client.replyMessage(e.replyToken, echo)
                     } else {
                         return client.replyMessage(e.replyToken, [{
