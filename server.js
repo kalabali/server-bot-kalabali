@@ -66,7 +66,7 @@ Router.post('/callback', async(ctx) => {
                  ctx.body = echo;
                  return client.replyMessage(e.replyToken, echo);
                }
-            } else if(e.type == 'message'){
+            } else if(e.type == 'message' && e.message.type == "text"){
                 //checking interaction
                 // Fitur 1 Penanggal
                 if(e.message.text.toLowerCase() == "penanggal" && e.message.text.length == 9){
