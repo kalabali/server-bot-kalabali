@@ -192,7 +192,7 @@ Router.post('/callback', async(ctx) => {
                     text: "Cari \n Menu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \n Misal ketikkan : Cari Purnama atau Cari Kuningan"
                 }]);
 
-              } else if(e.message.text.toLowerCase().indexOf("cari")){
+              } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
                     if(str.substring(str.indexOf(char) + 3)){
                         const date = await moment().tz("Asia/Makassar");
                         const echo = await calendar.getRerainan(str.substring(str.indexOf(char) + 2),date,'all')
