@@ -370,21 +370,34 @@ async function getCalendar (date) {
 async function getMonthCalendar (date) {
     console.log(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    console.log({response})
-    const body = JSON.parse(response.body)
-    console.log(body.calendar.image)
+    const body = JSON.parse(response.body)    
     let replies = [];
     replies.push({
             type: "image",
             originalContentUrl: body.calendar.image.full,
             previewImageUrl: body.calendar.image.preview
     })
-    let message = `
-    Pada bulan ${utils.getMonthName(date.bulan)} terdapat\n
-    • ${body.calendar.raws.rerainan.length} hari rerainan\n
-    • ${body.calendar.raws.peringatan.length} hari peringatan, dan\n
-    • ${body.calendar.raws.libur_nasional.length} hari libur nasional
-    `;
+    let message = `Hai Kak, ketemu nih.\n`;
+    if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
+        message += `
+            Pada bulan ${utils.getMonthName(date.bulan)} tahun ${date.tahun}, tidak ada catatan tentang rerainan, hari peringatan, atau libur nasional nih 0x10007C 0x10007C 0x10007C.
+        `;
+    }
+    else{
+        message += `Pada bulan ${utils.getMonthName(date.bulan)} ${date.tahun} ini kakak bakal ketemu\n`;
+        if(body.calendar.raws.rerainan.length > 0){
+            message += `• ${body.calendar.raws.rerainan.length} hari yang termasuk rerainan ${body.calendar.raws.peringatan.length > 0 ? "" : ", dan"}\n`
+        }
+        if(body.calendar.raws.peringatan.length > 0){
+            message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
+        }
+        if(body.calendar.raws.libur_nasional.length > 0){
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 0x100078 0x100078 0x100078\n`;
+        }
+        else{
+            message += `• Tidak ada libur nasional nih kak 0x10007C 0x100094`; 
+        }
+    }    
     replies.push({
         type: "text",
         text: message
