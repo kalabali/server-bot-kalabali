@@ -91,7 +91,7 @@ Router.post('/callback', async(ctx) => {
                                     "type":"datetimepicker",
                                     "label":"Pilih Tanggal",
                                     "data":"DATE",
-                                    "mode":"month"
+                                    "mode":"date"
                                  }
                             ]
                         }                    
