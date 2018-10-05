@@ -5,8 +5,8 @@ const fs = require('fs-extra')
 //penanggal
 
 async function getCalendar (date) {
-    console.log(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
-    const details = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    console.log(`http://117.53.46.40:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
+    const details = await koa2Req(`http://117.53.46.40:4000/v1/details?bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}`)
     const body = JSON.parse(details.body)
 
     var filename = body.details.image.substring(body.details.image.lastIndexOf('/')+1);
@@ -373,8 +373,8 @@ async function getCalendar (date) {
 //kalender bulanan
 
 async function getMonthCalendar (date) {
-    console.log(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    console.log(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
+    const response = await koa2Req(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const body = JSON.parse(response.body)    
     let replies = [];
     replies.push({
@@ -413,7 +413,7 @@ async function getMonthCalendar (date) {
 // cari rerainan
 
 async function getRerainan (rerainan, date) {
-    const response = await koa2Req(`https://dev-kalender-bali.herokuapp.com/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+    const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
     const body = JSON.parse(response.body)
     if(body.results.length == 0){
         return "Tidak ada rerainan terdekat"
