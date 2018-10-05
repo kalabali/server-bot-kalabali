@@ -375,12 +375,25 @@ async function getCalendar (date) {
 async function getMonthCalendar (date) {
     console.log(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const response = await koa2Req(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    const body = JSON.parse(response.body)    
+    const body = JSON.parse(response.body)  
+    
+    var filenameFull = body.calendar.image.full.substring(body.calendar.image.full.lastIndexOf('/')+1);
+    var filenamePreview = body.calendar.image.preview.substring(body.calendar.image.preview.lastIndexOf('/')+1);
+    
+    // Async with promises:
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/full/'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/full/'+filenameFull)
+        .then(() => console.log('success!'))
+        .catch(err => console.error(err))
+
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/preview/'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/preview/'+filenamePreview)
+        .then(() => console.log('success!'))
+        .catch(err => console.error(err))
+    
     let replies = [];
     replies.push({
             type: "image",
-            originalContentUrl: body.calendar.image.full,
-            previewImageUrl: body.calendar.image.preview
+            originalContentUrl: "https://www.kalabali.com/calendar-month/full/"+filenameFull,
+            previewImageUrl: "https://www.kalabali.com/calendar-month/preview/"+filenamePreview
     })
     let message = `Hai Kak, ketemu nih.\n`;
     if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
@@ -397,10 +410,17 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
         }
         if(body.calendar.raws.libur_nasional.length > 0){
+<<<<<<< HEAD
             message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 😍 😍 😍'\n`;
         }
         else{
             message += `• Tidak ada libur nasional nih kak 😭 😭 😭'`; 
+=======
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional\n`;
+        }
+        else{
+            message += `• Tidak ada libur nasional nih kak`; 
+>>>>>>> 86ced405b21254e5545ef4cd1061c6f1b308d311
         }
     }    
     replies.push({
@@ -412,17 +432,26 @@ async function getMonthCalendar (date) {
 
 // cari rerainan
 
-async function getRerainan (rerainan, date) {
-    const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+async function getRerainan (rerainan, date, type) {
+    var response = {}
+    if(type == 'all') {
+        response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=${rerainan}&bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}&filter=all`)
+    } else {
+        response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=${rerainan}&bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}&filter=near`)
+    }
+    
     const body = JSON.parse(response.body)
     if(body.results.length == 0){
-        return "Tidak ada rerainan terdekat"
+        return {
+            type: "text",
+            text: "Tidak ada rerainan"
+        }
     } else {
 
         var arrayRes = [
             {
               "type": "text",
-              "text": "Kuningan Terdekat",
+              "text": rerainan.charAt(0).toUpperCase() + rerainan.substr(1) + " " + (type == 'all' ? 'Semua' : 'Terdekat'),
               "weight": "bold",
               "color": "#d83d43",
               "size": "lg"
@@ -431,17 +460,15 @@ async function getRerainan (rerainan, date) {
               "type": "separator",
               "margin": "xxl"
             },
-            {
-              "type": "separator",
-              "margin": "xxl"
-            }
           ]
           
         body.results.forEach(element => {
+            if(parseInt(element.query.month) > parseInt(date.format('MM'))){
+
             var events = [
             {
                 "type": "text",
-                "text": "5 Okt 2018",
+                "text": element.data.date + " " + element.data.month + " " + element.data.year,
                 "size": "xs",
                 "color": "#aaaaaa",
                 "wrap": true
@@ -462,7 +489,7 @@ async function getRerainan (rerainan, date) {
                       },
                       {
                         "type": "text",
-                        "text": "Kapat",
+                        "text": event.event_name,
                         "wrap": true,
                         "color": "#666666",
                         "size": "sm",
@@ -472,6 +499,13 @@ async function getRerainan (rerainan, date) {
                   })
             })
 
+            events.push(
+                {
+                    "type": "separator",
+                    "margin": "xxl"
+                  }
+            )
+
             arrayRes.push({
                 "type": "box",
                 "layout": "vertical",
@@ -480,11 +514,12 @@ async function getRerainan (rerainan, date) {
                 "contents": events
               },
             )
+          }
         });
 
         var result = {
         "type": "flex",
-        "altText": "Kalender Bali - Hari Ini",
+        "altText": "Hasil cari rerainan",
         "contents": 
             {
             "type": "bubble",
