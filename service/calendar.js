@@ -381,19 +381,19 @@ async function getMonthCalendar (date) {
     var filenamePreview = body.calendar.image.preview.substring(body.calendar.image.preview.lastIndexOf('/')+1);
     
     // Async with promises:
-    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/'+filenameFull)
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/full'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/full'+filenameFull)
         .then(() => console.log('success!'))
         .catch(err => console.error(err))
 
-    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/'+filenamePreview)
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/preview'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/preview'+filenamePreview)
         .then(() => console.log('success!'))
         .catch(err => console.error(err))
     
     let replies = [];
     replies.push({
             type: "image",
-            originalContentUrl: "https://www.kalabali.com/calendar/"+filenameFull,
-            previewImageUrl: "https://www.kalabali.com/calendar/"+filenamePreview
+            originalContentUrl: "https://www.kalabali.com/calendar-month/full"+filenameFull,
+            previewImageUrl: "https://www.kalabali.com/calendar-month/preview"+filenamePreview
     })
     let message = `Hai Kak, ketemu nih.\n`;
     if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
