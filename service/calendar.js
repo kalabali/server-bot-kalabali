@@ -375,12 +375,25 @@ async function getCalendar (date) {
 async function getMonthCalendar (date) {
     console.log(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
     const response = await koa2Req(`http://117.53.46.40:4000/v1/calendar?bulan=${date.bulan}&tahun=${date.tahun}`)
-    const body = JSON.parse(response.body)    
+    const body = JSON.parse(response.body)  
+    
+    var filenameFull = body.calendar.image.full.substring(body.calendar.image.full.lastIndexOf('/')+1);
+    var filenamePreview = body.calendar.image.preview.substring(body.calendar.image.preview.lastIndexOf('/')+1);
+    
+    // Async with promises:
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/'+filenameFull)
+        .then(() => console.log('success!'))
+        .catch(err => console.error(err))
+
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/'+filenamePreview)
+        .then(() => console.log('success!'))
+        .catch(err => console.error(err))
+    
     let replies = [];
     replies.push({
             type: "image",
-            originalContentUrl: body.calendar.image.full,
-            previewImageUrl: body.calendar.image.preview
+            originalContentUrl: "https://www.kalabali.com/calendar/"+filenameFull,
+            previewImageUrl: "https://www.kalabali.com/calendar/"+filenamePreview
     })
     let message = `Hai Kak, ketemu nih.\n`;
     if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
