@@ -470,6 +470,10 @@ async function getRerainan (rerainan, date) {
         });
 
         var result = {
+        "type": "flex",
+        "altText": "Kalender Bali - Hari Ini",
+        "contents": 
+            {
             "type": "bubble",
             "body": {
               "type": "box",
@@ -477,6 +481,7 @@ async function getRerainan (rerainan, date) {
               "contents": arrayRes
             }
           }
+        }
     
     console.log(result)
     return result
