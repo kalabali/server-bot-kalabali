@@ -381,19 +381,19 @@ async function getMonthCalendar (date) {
     var filenamePreview = body.calendar.image.preview.substring(body.calendar.image.preview.lastIndexOf('/')+1);
     
     // Async with promises:
-    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/full'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/full'+filenameFull)
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/full/'+filenameFull, '/root/vhost/server-bot-kalabali/public/calendar-month/full/'+filenameFull)
         .then(() => console.log('success!'))
         .catch(err => console.error(err))
 
-    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/preview'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/preview'+filenamePreview)
+    fs.copy('/root/vhost/api-kalender-bali/public/calendar-month/preview/'+filenamePreview, '/root/vhost/server-bot-kalabali/public/calendar-month/preview/'+filenamePreview)
         .then(() => console.log('success!'))
         .catch(err => console.error(err))
     
     let replies = [];
     replies.push({
             type: "image",
-            originalContentUrl: "https://www.kalabali.com/calendar-month/full"+filenameFull,
-            previewImageUrl: "https://www.kalabali.com/calendar-month/preview"+filenamePreview
+            originalContentUrl: "https://www.kalabali.com/calendar-month/full/"+filenameFull,
+            previewImageUrl: "https://www.kalabali.com/calendar-month/preview/"+filenamePreview
     })
     let message = `Hai Kak, ketemu nih.\n`;
     if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
@@ -410,10 +410,10 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
         }
         if(body.calendar.raws.libur_nasional.length > 0){
-            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 0x100078 0x100078 0x100078\n`;
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional\n`;
         }
         else{
-            message += `• Tidak ada libur nasional nih kak 0x10007C 0x100094`; 
+            message += `• Tidak ada libur nasional nih kak`; 
         }
     }    
     replies.push({
