@@ -441,7 +441,7 @@ async function getRerainan (rerainan, date, type) {
         var arrayRes = [
             {
               "type": "text",
-              "text": rerainan.charAt(0).toUpperCase() + " " + (type == 'all' ? 'Semua' : 'Terdekat'),
+              "text": rerainan.charAt(0).toUpperCase() + rerainan.substr(1) + " " + (type == 'all' ? 'Semua' : 'Terdekat'),
               "weight": "bold",
               "color": "#d83d43",
               "size": "lg"
