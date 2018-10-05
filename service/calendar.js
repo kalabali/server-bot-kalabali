@@ -425,17 +425,22 @@ async function getMonthCalendar (date) {
 
 // cari rerainan
 
-async function getRerainan (rerainan, date) {
-    const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+async function getRerainan (rerainan, date, type) {
+    if(type == 'all') {
+        const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=all`)
+    } else {
+        const response = await koa2Req(`http://117.53.46.40:4000/v1/cari?keyword=kuningan&tanggal=5&bulan=10&tahun=2018&filter=near`)
+    }
+    
     const body = JSON.parse(response.body)
     if(body.results.length == 0){
-        return "Tidak ada rerainan terdekat"
+        return "Tidak ada rerainan"
     } else {
 
         var arrayRes = [
             {
               "type": "text",
-              "text": rerainan + " Terdekat",
+              "text": rerainan + " " + (type == 'all' ? 'Semua' : 'Terdekat'),
               "weight": "bold",
               "color": "#d83d43",
               "size": "lg"

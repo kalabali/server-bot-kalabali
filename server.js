@@ -186,7 +186,8 @@ Router.post('/callback', async(ctx) => {
                   }
               } 
               else if(e.message.text.toLowerCase() == "cari"){
-                const echo = await calendar.getRerainan(1,2)
+                const date = await moment().tz("Asia/Makassar");
+                const echo = await calendar.getRerainan('purnama',date,'all')
                 return client.replyMessage(e.replyToken, echo)
               }
               else {                
