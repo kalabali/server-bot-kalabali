@@ -396,9 +396,8 @@ async function getMonthCalendar (date) {
             previewImageUrl: "https://www.kalabali.com/calendar-month/preview/"+filenamePreview
     })
     let message = `Hai Kak, ketemu nih.\n`;
-    if(body.calendar.raws.rerainan.length == 0 || body.calendar.raws.peringatan.length == 0 || body.calendar.raws.libur_nasional.length == 0){
-        message += `
-            Pada bulan ${utils.getMonthName(date.bulan)} tahun ${date.tahun}, tidak ada catatan tentang rerainan, hari peringatan, atau libur nasional nih 0x10007C 0x10007C 0x10007C.
+    if(body.calendar.raws.rerainan.length == 0 && body.calendar.raws.peringatan.length == 0 && body.calendar.raws.libur_nasional.length == 0){
+        message += `Pada bulan ${utils.getMonthName(date.bulan)} tahun ${date.tahun}, tidak ada catatan tentang rerainan, hari peringatan, atau libur nasional nih 🤔 🤔 🤔.
         `;
     }
     else{
@@ -413,7 +412,7 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 😍 😍 😍'\n`;
         }
         else{
-            message += `• Tidak ada libur nasional nih kak 😭 😭 😭'`; 
+            message += `• Tidak ada libur nasional nih kak 😭 😭 😭`; 
         }
     }    
     replies.push({

@@ -209,6 +209,9 @@ Router.post('/callback', async(ctx) => {
                 return bingung(e.replyToken);
               }
             }
+            else if(e.type == "sticker" || e.type == "audio" || e.type == "video" || e.type == "file" || e.type == "location"){
+                return bingung(e.replyToken)
+            }
         })
     )
     .then(all => {
