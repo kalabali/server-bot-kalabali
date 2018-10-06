@@ -73,9 +73,13 @@ Router.post('/callback', async(ctx) => {
                     let replies = [];
                     replies.push({
                         type: "text",
+<<<<<<< HEAD
                         text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari\n
                         Mulai dari hari raya, momen peringatan, wuku, dll.\n
                         Kakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
+=======
+                        text: "Penanggal adalah menu untuk mengetahui informasi lebih lanjut pada tanggal tertentu seperti, hari raya, peringatan, libur nasional, wuku, sasih, dll. \n Kakak cukup mengetikan 'Penanggal hari ini' atau 'Penanggal dd mm yyyy'. Ayo mulai cari tahu informasi yang kakak inginkan mulai dari hari ini atau langsung ke tanggal yang ingin kakak kepoin."
+>>>>>>> 95a79c1b9f7ae44d14ee9a81716d8a09bd255136
                     })
                     replies.push({
                         type: 'template',

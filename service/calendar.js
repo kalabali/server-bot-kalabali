@@ -436,14 +436,14 @@ async function getRerainan (rerainan, date, type) {
     if(body.results.length == 0){
         return {
             type: "text",
-            text: "Tidak ada rerainan"
+            text: "Tidak ada rerainan dengan kata kunci " + rerainan
         }
     } else {
 
         var arrayRes = [
             {
               "type": "text",
-              "text": rerainan.charAt(0).toUpperCase() + rerainan.substr(1) + " " + (type == 'all' ? 'Semua' : 'Terdekat'),
+              "text": "Hari Raya " + rerainan.charAt(0).toUpperCase() + rerainan.substr(1) + " " + (type == 'all' ? 'Terdekat' : 'Terdekat'),
               "weight": "bold",
               "color": "#d83d43",
               "size": "lg"
@@ -455,7 +455,7 @@ async function getRerainan (rerainan, date, type) {
           ]
           
         body.results.forEach(element => {
-            if(parseInt(element.query.month) > parseInt(date.format('MM'))){
+            if(parseInt(element.query.month) >= parseInt(date.format('MM'))){
 
             var events = [
             {
