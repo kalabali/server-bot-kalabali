@@ -69,40 +69,73 @@ Router.post('/callback', async(ctx) => {
             } else if(e.type == 'message' && e.message.type == "text"){
                 //checking interaction
                 // Fitur 1 Penanggal
-                if(e.message.text.toLowerCase() == "penanggal" && e.message.text.length == 9){
-                    let replies = [];
-                    replies.push({
-                        type: "text",
-<<<<<<< HEAD
-                        text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari\n
-                        Mulai dari hari raya, momen peringatan, wuku, dll.\n
-                        Kakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
-=======
-                        text: "Penanggal adalah menu untuk mengetahui informasi lebih lanjut pada tanggal tertentu seperti, hari raya, peringatan, libur nasional, wuku, sasih, dll. \n Kakak cukup mengetikan 'Penanggal hari ini' atau 'Penanggal dd mm yyyy'. Ayo mulai cari tahu informasi yang kakak inginkan mulai dari hari ini atau langsung ke tanggal yang ingin kakak kepoin."
->>>>>>> 95a79c1b9f7ae44d14ee9a81716d8a09bd255136
-                    })
-                    replies.push({
-                        type: 'template',
-                        altText: "Kakak mau kepoin yang mana?",
-                        template: {
-                            type: "confirm",
-                            text: "Kakak mau kepoin yang mana?",
-                            actions: [
-                                {
-                                    type: "message",
-                                    label: "Hari ini",
-                                    text: "penanggal hari ini"
-                                },
-                                {  
-                                    "type":"datetimepicker",
-                                    "label":"Pilih Tanggal",
-                                    "data":"DATE",
-                                    "mode":"date"
-                                 }
-                            ]
-                        }                    
-                    })                   
-                    return client.replyMessage(e.replyToken, replies);     
+                if(e.message.text.toLowerCase().substring(0,9) == "penanggal"){
+                    if(e.message.text.length == 9){
+                        let replies = [];
+                        replies.push({
+                            type: "text",
+                            text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari\n
+                            Mulai dari hari raya, momen peringatan, wuku, dll.\n
+                            Kakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
+                        })
+                        replies.push({
+                            type: 'template',
+                            altText: "Kakak mau kepoin yang mana?",
+                            template: {
+                                type: "confirm",
+                                text: "Kakak mau kepoin yang mana?",
+                                actions: [
+                                    {
+                                        type: "message",
+                                        label: "Hari ini",
+                                        text: "penanggal hari ini"
+                                    },
+                                    {  
+                                        "type":"datetimepicker",
+                                        "label":"Pilih Tanggal",
+                                        "data":"DATE",
+                                        "mode":"date"
+                                    }
+                                ]
+                            }                    
+                        })                   
+                        return client.replyMessage(e.replyToken, replies);     
+                    }
+                    else if(e.message.text.toLowerCase() == "penanggal dong"){
+                        let replies = [];
+                        replies.push({
+                            type: 'template',
+                            altText: "Kakak mau kepoin yang mana?",
+                            template: {
+                                type: "confirm",
+                                text: "Kakak mau kepoin yang mana?",
+                                actions: [
+                                    {
+                                        type: "message",
+                                        label: "Hari ini",
+                                        text: "penanggal hari ini"
+                                    },
+                                    {  
+                                        "type":"datetimepicker",
+                                        "label":"Pilih Tanggal",
+                                        "data":"DATE",
+                                        "mode":"date"
+                                    }
+                                ]
+                            }                    
+                        })                   
+                        return client.replyMessage(e.replyToken, replies);     
+                    }
+                    else{                        
+                        return client.replyMessage(e.replyToken, [
+                            {
+                                type: "text",
+                                text: `Maaf, kala tidak mengerti tanggal yang ingin kakak cari. \udbc0\udc92 \n
+                                Kakak bisa mengetikkan "Penanggal dong" untuk menu penanggal.
+                                `
+                            }
+                        ]);     
+                    }
                 }
                 else if(e.message.text.toLowerCase().indexOf("hari ini") != -1){
                     const date = await moment().tz("Asia/Makassar");
@@ -126,10 +159,10 @@ Router.post('/callback', async(ctx) => {
                             type: "text",
                             text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
                         })                 
-                        pushPenanggal(e.source.userId, replies);  
                         const date = await moment().tz("Asia/Makassar");
                         const echo = await calendar.getCalendar(date);
-                        return client.replyMessage(e.replyToken, echo);
+                        client.replyMessage(e.replyToken, replies);
+                        pushPenanggal(e.source.userId, echo);  
                     }
                     else{                        
                         if(message.length == 3){
@@ -223,7 +256,7 @@ Router.post('/callback', async(ctx) => {
                 return bingung(e.replyToken);
               }
             }
-            else{
+            else if(e.type == "sticker" || e.type == "image" || e.type == "video" || e.type == "audio" || e.type == "file" || e.type == "location"){
                 return bingung(e.replyToken)
             }
         })
