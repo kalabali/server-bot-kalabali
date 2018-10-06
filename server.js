@@ -41,7 +41,7 @@ Router.get('/calendar', async(ctx) => {
     ctx.body = "Calendar"
 })
 
-if(process.env.NODE_APP_INSTANCE === 0) {
+if(process.env.NODE_APP_INSTANCE === '0') {
     cron.schedule('*/2 * * * *', () => {
         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
             type: "text",
