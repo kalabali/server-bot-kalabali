@@ -397,7 +397,7 @@ async function getMonthCalendar (date) {
     })
     let message = `Hai Kak, ketemu nih.\n`;
     if(body.calendar.raws.rerainan.length == 0 && body.calendar.raws.peringatan.length == 0 && body.calendar.raws.libur_nasional.length == 0){
-        message += `Pada bulan ${utils.getMonthName(date.bulan)} tahun ${date.tahun}, tidak ada catatan tentang rerainan, hari peringatan, atau libur nasional nih 🤔 🤔 🤔.
+        message += `Pada bulan ${utils.getMonthName(date.bulan)} tahun ${date.tahun}, tidak ada catatan tentang rerainan, hari peringatan, atau libur nasional nih.
         `;
     }
     else{
@@ -409,10 +409,10 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
         }
         if(body.calendar.raws.libur_nasional.length > 0){
-            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional 😍 😍 😍'\n`;
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional \udbc0\udc78 \udbc0\udc78 \udbc0\udc78'\n`;
         }
         else{
-            message += `• Tidak ada libur nasional nih kak 😭 😭 😭`; 
+            message += `• Tidak ada libur nasional nih kak \udbc0\udc7c \udbc0\udc94 \udbc0\udc7c`; 
         }
     }    
     replies.push({

@@ -171,6 +171,12 @@ Router.post('/callback', async(ctx) => {
                       monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
                       let date = new Date(`${remainM[1]}-${monthIndex}-01`);
                       if(date != "Invalid Date"){
+                        pushPenanggal(e.source.userId, [
+                            {
+                                type: "text",
+                                text: "\ud83d\udd0d Tunggu sebentar ya kak...   "
+                            }
+                        ])
                         const echo = await calendar.getMonthCalendar({
                             bulan: utils.getMonthIndex(remainM[0]),
                             tahun: remainM[1]
@@ -249,11 +255,7 @@ function handleEvent(event) {
   }
 
 
-function pushPenanggal(userId, message){
-    console.log({
-        userId,
-        message
-    })
+function pushPenanggal(userId, message){    
     client.pushMessage(userId, message);
 }
 //app.use(Line.middleware(config))
