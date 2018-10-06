@@ -49,22 +49,17 @@ Router.post('/callback', async(ctx) => {
             })
             if(e.type == 'postback') {
                if(e.postback.data == 'DATE'){
-                let replies = [];
-                    replies.push({
-                        type: "sticker",
-                        packageId: 2,
-                        stickerId: 161
-                    })
+                let replies = [];                    
                     replies.push({
                         type: "text",
                         text: "\ud83d\udd0d Tunggu sebentar ya kak..."
-                    })                 
+                    })                                 
+                console.log(e.postback.params.date)
+                let date = moment(e.postback.params.date)
+                const echo = await calendar.getCalendar(date);
+                ctx.body = echo;
+                client.replyMessage(e.replyToken, echo);
                 pushPenanggal(e.source.userId, replies); 
-                 console.log(e.postback.params.date)
-                 let date = moment(e.postback.params.date)
-                 const echo = await calendar.getCalendar(date);
-                 ctx.body = echo;
-                 return client.replyMessage(e.replyToken, echo);
                }
             } else if(e.type == 'message' && e.message.type == "text"){
                 //checking interaction
@@ -193,40 +188,45 @@ Router.post('/callback', async(ctx) => {
                         
                     }
               } //@fiture kalendar 
-              else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
-                  const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
-                  let monthIndex = utils.getMonthIndex(remainM[0]);
-                  if(monthIndex === -1){
-                    return client.replyMessage(e.replyToken, [                        
-                        {
-                            type: "text",
-                            text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
-                        }
-                    ]);                                     
+              else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender")){ 
+                  if(e.message.text.length == 8){ //user ngetik kalender
+
                   }
-                  else{
-                      monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
-                      let date = new Date(`${remainM[1]}-${monthIndex}-01`);
-                      if(date != "Invalid Date"){
-                        pushPenanggal(e.source.userId, [
+                  else if(e.message.text.length > 8){
+                    const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
+                    let monthIndex = utils.getMonthIndex(remainM[0]);
+                    if(monthIndex === -1){
+                        return client.replyMessage(e.replyToken, [                        
                             {
                                 type: "text",
-                                text: "\ud83d\udd0d Tunggu sebentar ya kak..."
+                                text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
                             }
-                        ])
-                        const echo = await calendar.getMonthCalendar({
-                            bulan: utils.getMonthIndex(remainM[0]),
-                            tahun: remainM[1]
-                          });  
-                        return client.replyMessage(e.replyToken, echo);                                 
-                      }
-                      else{
-                        return client.replyMessage(e.replyToken, [ {
-                            type: "text",
-                            text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
-                        }]);                                     
-                      }
-                  }
+                        ]);                                     
+                    }
+                    else{
+                        monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
+                        let date = new Date(`${remainM[1]}-${monthIndex}-01`);
+                        if(date != "Invalid Date"){                            
+                            const echo = await calendar.getMonthCalendar({
+                                bulan: utils.getMonthIndex(remainM[0]),
+                                tahun: remainM[1]
+                            });  
+                            client.replyMessage(e.replyToken, [
+                                {
+                                    type: "text",
+                                    text: "\ud83d\udd0d Tunggu sebentar ya kak..."
+                                }
+                            ]);                                 
+                            pushPenanggal(e.source.userId, echo);
+                        }
+                        else{
+                            return client.replyMessage(e.replyToken, [ {
+                                type: "text",
+                                text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
+                            }]);                                     
+                        }
+                    }
+                  }                  
               } 
               else if(e.message.text.toLowerCase() == "cari"){
                 
