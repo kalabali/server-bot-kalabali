@@ -74,7 +74,7 @@ Router.post('/callback', async(ctx) => {
                         let replies = [];
                         replies.push({
                             type: "text",
-                            text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari.\n Mulai dari hari raya, momen peringatan, wuku, dll.\n Kakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
+                            text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
                         })
                         replies.push({
                             type: 'template',
