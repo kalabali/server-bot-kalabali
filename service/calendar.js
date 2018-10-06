@@ -409,7 +409,7 @@ async function getMonthCalendar (date) {
             message += `• ${body.calendar.raws.peringatan.length} peringatan nasional, dan\n`
         }
         if(body.calendar.raws.libur_nasional.length > 0){
-            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional \udbc0\udc78 \udbc0\udc78 \udbc0\udc78'\n`;
+            message += `• ${body.calendar.raws.libur_nasional.length} libur nasional \udbc0\udc78 \udbc0\udc78 \udbc0\udc78\n`;
         }
         else{
             message += `• Tidak ada libur nasional nih kak \udbc0\udc7c \udbc0\udc94 \udbc0\udc7c`; 

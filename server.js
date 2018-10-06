@@ -73,7 +73,9 @@ Router.post('/callback', async(ctx) => {
                     let replies = [];
                     replies.push({
                         type: "text",
-                        text: "Penanggal adalah menu untuk mengetahui informasi lebih lanjut pada tanggal tertentu seperti, hari raya, peringatan, libur nasional, wuku, sasih, dll. Kakak cukup mengetikan 'Penanggal hari ini' atau 'Penanggal dd mm yyyy'. Ayo mulai cari tahu informasi yang kakak inginkan mulai dari hari ini atau langsung ke tanggal yang ingin kakak kepoin."
+                        text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari\n
+                        Mulai dari hari raya, momen peringatan, wuku, dll.\n
+                        Kakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
                     })
                     replies.push({
                         type: 'template',
@@ -161,11 +163,13 @@ Router.post('/callback', async(ctx) => {
               else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender") && e.message.text.length > 8){ 
                   const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
                   let monthIndex = utils.getMonthIndex(remainM[0]);
-                  if(monthIndex === -1 || remainM.length < 2){
-                    return client.replyMessage(e.replyToken, [{
-                        type: "text",
-                        text: "wadoooh"
-                    }]);                                     
+                  if(monthIndex === -1){
+                    return client.replyMessage(e.replyToken, [                        
+                        {
+                            type: "text",
+                            text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
+                        }
+                    ]);                                     
                   }
                   else{
                       monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
@@ -184,9 +188,9 @@ Router.post('/callback', async(ctx) => {
                         return client.replyMessage(e.replyToken, echo);                                 
                       }
                       else{
-                        return client.replyMessage(e.replyToken, [{
+                        return client.replyMessage(e.replyToken, [ {
                             type: "text",
-                            text: "wadoooh salah format"
+                            text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
                         }]);                                     
                       }
                   }
