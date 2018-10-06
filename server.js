@@ -280,6 +280,12 @@ Router.post('/callback', async(ctx) => {
                     text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
                 }]); 
               }
+              else if(e.message.text.toLowerCase() == "om swastiastu" || e.message.text.toLowerCase() == "hallo"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Om swastiastu.`
+                }]); 
+              }
               else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
