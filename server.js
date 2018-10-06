@@ -9,6 +9,8 @@ const render = require('koa-ejs');
 const path = require('path');
 const serve = require('koa-static');
 const cron = require("node-cron");
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
@@ -41,25 +43,30 @@ Router.get('/calendar', async(ctx) => {
     ctx.body = "Calendar"
 })
 
-// if(process.env.NODE_APP_INSTANCE === '0') {
-//     cron.schedule('*/2 * * * *', () => {
-//         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
-//             type: "text",
-//             text: "from cron push"
-//         }]).then((res)=>console.log(res))
-//         // 'Uaeed026aa8149788b8ea9546bf8f67af'
-//         console.log('running a task every two minutes');
-//     });
-    
-//     cron.schedule('*/4 * * * *', () => {
-//         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
-//             type: "text",
-//             text: "from cron push 2"
-//         }]).then((res)=>console.log(res))
-//         // 'Uaeed026aa8149788b8ea9546bf8f67af'
-//         console.log('running a task every 4 minutes');
-//     });
-// }
+if(process.env.NODE_APP_INSTANCE === '0') {    
+    cron.schedule('48 2 * * *', () => {
+        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
+            if(err == null){
+                console.log({
+                    data
+                })
+                const semetons = JSON.parse(data);
+                semetons.user_id.forEeach(semeton => {
+                        console.log({
+                            semeton
+                        })
+                })
+            }
+            else{
+
+            }
+        })
+        console.log("puja trisandhya pagi");
+      }, {
+        scheduled: true,
+        timezone: "Asia/Jakarta"
+      });
+}
 
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
@@ -300,7 +307,7 @@ Router.post('/callback', async(ctx) => {
                     text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
                 }]); 
               }
-              else if(e.message.text.toLowerCase() == "om swastiastu" || e.message.text.toLowerCase() == "hallo"){
+              else if(e.message.text.toLowerCase() == "om swastiastu"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
                     text: `Om swastiastu.`
@@ -336,6 +343,9 @@ Router.post('/callback', async(ctx) => {
             }
             else if(e.type == "sticker" || e.type == "image" || e.type == "video" || e.type == "audio" || e.type == "file" || e.type == "location"){
                 return bingung(e.replyToken)
+            }
+            if(e.type == "follow"){ //bot added as friend or unblocked
+                
             }
         })
     )
