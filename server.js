@@ -57,7 +57,7 @@ Router.post('/callback', async(ctx) => {
                     })
                     replies.push({
                         type: "text",
-                        text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                        text: "\ud83d\udd0d Tunggu sebentar ya kak..."
                     })                 
                 pushPenanggal(e.source.userId, replies); 
                  console.log(e.postback.params.date)
@@ -130,9 +130,7 @@ Router.post('/callback', async(ctx) => {
                         return client.replyMessage(e.replyToken, [
                             {
                                 type: "text",
-                                text: `Maaf, kala tidak mengerti tanggal yang ingin kakak cari. \udbc0\udc92 \n
-                                Kakak bisa mengetikkan "Penanggal dong" untuk menu penanggal.
-                                `
+                                text: 'Maaf, kala tidak mengerti tanggal yang ingin kakak cari. \udbc0\udc92 \n Kakak bisa mengetikkan "Penanggal dong" untuk menggunakan menu penanggal.'
                             }
                         ]);     
                     }
@@ -215,7 +213,7 @@ Router.post('/callback', async(ctx) => {
                         pushPenanggal(e.source.userId, [
                             {
                                 type: "text",
-                                text: "\ud83d\udd0d Tunggu sebentar ya kak...   "
+                                text: "\ud83d\udd0d Tunggu sebentar ya kak..."
                             }
                         ])
                         const echo = await calendar.getMonthCalendar({
