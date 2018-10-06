@@ -280,6 +280,30 @@ Router.post('/callback', async(ctx) => {
                     text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
                 }]); 
               }
+              else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Hallo kak.`
+                }]); 
+              }
+              else if(e.message.text.toLowerCase() == "kala"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Hallo kak, ada yang bisa kala bantu?`
+                }]); 
+              }
+              else if(e.message.text.toLowerCase() == "about" || e.message.text.toLowerCase() == "tentang" || e.message.text.toLowerCase() == "kala bali"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Kala Bali adalah aplikasi untuk mengakses informasi mengenai kalendar bali secara digital\nDibuat di Bali, oleh I Made Surya Budi Surya Darma dan Teofilus Candra`
+                }]); 
+              }
+              else if(e.message.text.toLowerCase() == "feedback" || e.message.text.toLowerCase() == "masukkan"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Kala Bali sangat mengapresiasi kritik dan masukan, kirimkan melalui email resmi kami : kalabalimedia@gmail.com`
+                }]); 
+              }
               else {                
                 return bingung(e.replyToken);
               }
