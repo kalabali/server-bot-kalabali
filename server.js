@@ -6,7 +6,6 @@ const calendar = require('./service/calendar')
 const dateValidator = require("./utils/date-validator")
 const utils = require("./service/utils")
 const render = require('koa-ejs');
-const path = require('path');
 const serve = require('koa-static');
 const cron = require("node-cron");
 const fs = require('fs');
@@ -44,24 +43,55 @@ Router.get('/calendar', async(ctx) => {
 })
 
 if(process.env.NODE_APP_INSTANCE === '0') {    
-    cron.schedule('48 2 * * *', () => {
+    cron.schedule('0 5 * * *', () => {
+        let message = [{
+            type: "text",
+            text: "Selamat pagi, jam sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+        }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
-            if(err == null){
-                console.log({
-                    data
+            if(err == null){                
+                const semetons = JSON.parse(data);                                
+                semetons.user_id.forEach(semeton => {
+                    client.pushMessage(semeton, message);
                 })
-                const semetons = JSON.parse(data);
-                semetons.user_id.forEeach(semeton => {
-                        console.log({
-                            semeton
-                        })
+            }            
+        })        
+      }, {
+        scheduled: true,
+        timezone: "Asia/Jakarta"
+      });
+      
+      cron.schedule('0 11 * * *', () => {
+        let message = [{
+            type: "text",
+            text: "Selamat siang, jam sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+        }];
+        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
+            if(err == null){                
+                const semetons = JSON.parse(data);                                
+                semetons.user_id.forEach(semeton => {
+                    client.pushMessage(semeton, message);
                 })
-            }
-            else{
+            }            
+        })        
+      }, {
+        scheduled: true,
+        timezone: "Asia/Jakarta"
+      });
 
-            }
-        })
-        console.log("puja trisandhya pagi");
+      cron.schedule('0 17 * * *', () => {
+        let message = [{
+            type: "text",
+            text: "Selamat Sore, jam sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+        }];
+        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
+            if(err == null){                
+                const semetons = JSON.parse(data);                                
+                semetons.user_id.forEach(semeton => {
+                    client.pushMessage(semeton, message);
+                })
+            }            
+        })        
       }, {
         scheduled: true,
         timezone: "Asia/Jakarta"
