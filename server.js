@@ -41,25 +41,25 @@ Router.get('/calendar', async(ctx) => {
     ctx.body = "Calendar"
 })
 
-if(process.env.NODE_APP_INSTANCE === '0') {
-    cron.schedule('*/2 * * * *', () => {
-        client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
-            type: "text",
-            text: "from cron push"
-        }]).then((res)=>console.log(res))
-        // 'Uaeed026aa8149788b8ea9546bf8f67af'
-        console.log('running a task every two minutes');
-    });
+// if(process.env.NODE_APP_INSTANCE === '0') {
+//     cron.schedule('*/2 * * * *', () => {
+//         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
+//             type: "text",
+//             text: "from cron push"
+//         }]).then((res)=>console.log(res))
+//         // 'Uaeed026aa8149788b8ea9546bf8f67af'
+//         console.log('running a task every two minutes');
+//     });
     
-    cron.schedule('*/4 * * * *', () => {
-        client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
-            type: "text",
-            text: "from cron push 2"
-        }]).then((res)=>console.log(res))
-        // 'Uaeed026aa8149788b8ea9546bf8f67af'
-        console.log('running a task every 4 minutes');
-    });
-}
+//     cron.schedule('*/4 * * * *', () => {
+//         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
+//             type: "text",
+//             text: "from cron push 2"
+//         }]).then((res)=>console.log(res))
+//         // 'Uaeed026aa8149788b8ea9546bf8f67af'
+//         console.log('running a task every 4 minutes');
+//     });
+// }
 
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
