@@ -6,6 +6,7 @@
           "watch"       : false,
           "merge_logs"  : true,
           "log_date_format": "YYYY-MM-DD HH:mm Z",
+          "instance_var": "INSTANCE_ID",
           "env": {
             "NODE_ENV": "production",
             "PORT": 3000
