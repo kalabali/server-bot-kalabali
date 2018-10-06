@@ -8,7 +8,7 @@ const utils = require("./service/utils")
 const render = require('koa-ejs');
 const path = require('path');
 const serve = require('koa-static');
-// const memCache = require('memory-cache');
+const cron = require("node-cron");
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
@@ -40,6 +40,25 @@ Router.get('/', async(ctx) => {
 Router.get('/calendar', async(ctx) => {
     ctx.body = "Calendar"
 })
+
+
+cron.schedule('*/2 * * * *', () => {
+    client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
+        type: "text",
+        text: "from cron push"
+    }]);
+    // 'Uaeed026aa8149788b8ea9546bf8f67af'
+    console.log('running a task every two minutes');
+});
+
+cron.schedule('*/4 * * * *', () => {
+    client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
+        type: "text",
+        text: "from cron push 2"
+    }]);
+    // 'Uaeed026aa8149788b8ea9546bf8f67af'
+    console.log('running a task every 4 minutes');
+});
 
 Router.post('/callback', async(ctx) => {
     const results = await Promise.all(
