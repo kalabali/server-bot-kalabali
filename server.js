@@ -46,7 +46,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
             type: "text",
             text: "from cron push"
-        }]);
+        }]).then((res)=>console.log(res))
         // 'Uaeed026aa8149788b8ea9546bf8f67af'
         console.log('running a task every two minutes');
     });
@@ -55,7 +55,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
         client.pushMessage("'Uaeed026aa8149788b8ea9546bf8f67af'", [{
             type: "text",
             text: "from cron push 2"
-        }]);
+        }]).then((res)=>console.log(res))
         // 'Uaeed026aa8149788b8ea9546bf8f67af'
         console.log('running a task every 4 minutes');
     });
