@@ -436,7 +436,7 @@ async function getRerainan (rerainan, date, type) {
     if(body.results.length == 0){
         return {
             type: "text",
-            text: "Tidak ada rerainan"
+            text: "Tidak ada rerainan dengan kata kunci " + rerainan
         }
     } else {
 
