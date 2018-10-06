@@ -8,7 +8,7 @@ const utils = require("./service/utils")
 const render = require('koa-ejs');
 const path = require('path');
 const serve = require('koa-static');
-const cron = require("cron");
+const cron = require("node-cron");
 require('dotenv').config()
 const app = new Koa()
 app.use(bodyParser())
