@@ -359,5 +359,5 @@ function pushPenanggal(userId, message){
 }
 //app.use(Line.middleware(config))
 app.use(Router.routes())
-console.log(process.env.PORT)
+console.log(process.env.NODE_APP_INSTANCE)
 app.listen(process.env.PORT || 3000)
