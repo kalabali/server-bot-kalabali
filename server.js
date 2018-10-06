@@ -140,15 +140,10 @@ Router.post('/callback', async(ctx) => {
                         message
                     })
                     let replies = [];
-                    if(`${message[1]} ${message[2]}` == "hari ini"){
-                        replies.push({
-                            type: "sticker",
-                            packageId: 2,
-                            stickerId: 161
-                        })
+                    if(`${message[1]} ${message[2]}` == "hari ini"){                        
                         replies.push({
                             type: "text",
-                            text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                            text: "\ud83d\udd0d Tunggu sebentar ya kak..."
                         })                 
                         const date = await moment().tz("Asia/Makassar");
                         const echo = await calendar.getCalendar(date);
@@ -166,13 +161,8 @@ Router.post('/callback', async(ctx) => {
                             }
                             else{                                
                                 replies.push({
-                                    type: "sticker",
-                                    packageId: 2,
-                                    stickerId: 161
-                                })
-                                replies.push({
                                     type: "text",
-                                    text: "Antos dumun. Kari ngebitan kalendar.\n ------- \n Tunggu Sebentar"
+                                    text: "\ud83d\udd0d Tunggu sebentar ya kak..."
                                 })                 
                                 pushPenanggal(e.source.userId, replies);
                                 if(message[2].length == 1)
@@ -190,11 +180,22 @@ Router.post('/callback', async(ctx) => {
               } //@fiture kalendar 
               else if((e.message.text.toLowerCase().substr(0,8) == "kalendar" || e.message.text.toLowerCase().substr(0,8) == "kalender")){ 
                   if(e.message.text.length == 8){ //user ngetik kalender
-
+                    return client.replyMessage(e.replyToken, [                        
+                        {
+                            type: "text",
+                            text: `Hai kak, kakak dapat mengunakan menu Kalender Bulanan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".`
+                        }
+                    ]); 
                   }
                   else if(e.message.text.length > 8){
-                    const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");       
+                    const remainM = e.message.text.toLowerCase().substr(8).trim().split(" ");      console.log({
+                        remainM
+                    })
                     let monthIndex = utils.getMonthIndex(remainM[0]);
+                    console.log({
+                        remainM,
+                        monthIndex
+                    })
                     if(monthIndex === -1){
                         return client.replyMessage(e.replyToken, [                        
                             {
@@ -204,27 +205,52 @@ Router.post('/callback', async(ctx) => {
                         ]);                                     
                     }
                     else{
-                        monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
-                        let date = new Date(`${remainM[1]}-${monthIndex}-01`);
-                        if(date != "Invalid Date"){                            
-                            const echo = await calendar.getMonthCalendar({
-                                bulan: utils.getMonthIndex(remainM[0]),
-                                tahun: remainM[1]
-                            });  
-                            client.replyMessage(e.replyToken, [
-                                {
-                                    type: "text",
-                                    text: "\ud83d\udd0d Tunggu sebentar ya kak..."
-                                }
-                            ]);                                 
-                            pushPenanggal(e.source.userId, echo);
+                        // let today = new Date();
+                        let year;
+                        if(remainM.length > 1){ //validate the year here
+                            let tempY = remainM[1];
+                            if(!isNaN(parseInt(tempY)) && (parseInt(tempY) >= 2013 || parseInt(tempY) <= 2020)){
+                                year = tempY;                                
+                            }   
+
                         }
+                        else if(remainM.length == 1){
+                            console.log("masuk")                            
+                            let today = new Date();
+                            year = today.getFullYear();
+                            console.log({
+                                year
+                            })
+                        }
+                        if(year != undefined){                            
+                            monthIndex = monthIndex < 10 ? `0${monthIndex}`: monthIndex;
+                            let date = new Date(`${remainM[1]}-${monthIndex}-01`);
+                            if(date != "Invalid Date"){                            
+                                client.replyMessage(e.replyToken, [
+                                    {
+                                        type: "text",
+                                        text: "\ud83d\udd0d Tunggu sebentar ya kak..."
+                                    }
+                                ]);                                 
+                                const echo = await calendar.getMonthCalendar({
+                                    bulan: utils.getMonthIndex(remainM[0]),
+                                    tahun: year
+                                });                              
+                                pushPenanggal(e.source.userId, echo);
+                            }
+                            else{
+                                return client.replyMessage(e.replyToken, [ {
+                                    type: "text",
+                                    text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
+                                }]);                                     
+                            }
+                        }                     
                         else{
                             return client.replyMessage(e.replyToken, [ {
                                 type: "text",
                                 text: "Maaf, kala tidak mengerti kalender bulan apa yang ingin kakak cari. \udbc0\udc92"
                             }]);                                     
-                        }
+                        }   
                     }
                   }                  
               } 
@@ -232,7 +258,7 @@ Router.post('/callback', async(ctx) => {
                 
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: "Cari \n Menu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \n Misal ketikkan : Cari Purnama atau Cari Kuningan"
+                    text: "Cari \nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan"
                 }]);
 
               } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
@@ -247,6 +273,12 @@ Router.post('/callback', async(ctx) => {
                             text: "Kala belum bisa menemukan hari upacara itu. Hmm, nanti kala cari lagi ya."
                         }]); 
                     }
+              }
+              else if(e.message.text.toLowerCase() == "bantuan" || e.message.text.toLowerCase() == "help" || e.message.text.toLowerCase() == "tolong"){
+                return client.replyMessage(e.replyToken, [{
+                    type: "text",
+                    text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
+                }]); 
               }
               else {                
                 return bingung(e.replyToken);

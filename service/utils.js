@@ -1,41 +1,51 @@
 function getMonthIndex(month){
-    const months = [
-        "januari",
-        "februari",
-        "maret",
-        "april",
-        "mei",
-        "juni",
-        "juli",
-        "agustus",
-        "september",
-        "oktober",
-        "nopember",
-        "desember"
-    ];
-
-    const monthsEn = [
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december"
-    ];
-
-    if(months.indexOf(month) != -1){
-        return months.indexOf(month) + 1;
+    if(!isNaN(month)){
+        month = parseInt(month);
+        let today = new Date();
+        if(month < 1 || month > 12){
+            month = today.getMonth() + 1;
+        }
+        return month;
     }
-    else if(monthsEn.indexOf(month) != -1){
-        return monthsEn.indexOf(month) + 1;
-    }
-    return -1;
+    else{
+        const months = [
+            "januari",
+            "februari",
+            "maret",
+            "april",
+            "mei",
+            "juni",
+            "juli",
+            "agustus",
+            "september",
+            "oktober",
+            "nopember",
+            "desember"
+        ];
+    
+        const monthsEn = [
+            "january",
+            "february",
+            "march",
+            "april",
+            "may",
+            "june",
+            "july",
+            "august",
+            "september",
+            "october",
+            "november",
+            "december"
+        ];
+    
+        if(months.indexOf(month) != -1){
+            return months.indexOf(month) + 1;
+        }
+        else if(monthsEn.indexOf(month) != -1){
+            return monthsEn.indexOf(month) + 1;
+        }
+        return -1;
+    }    
 }
 
 function getMonthName(month){
