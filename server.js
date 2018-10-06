@@ -101,7 +101,7 @@ Router.post('/callback', async(ctx) => {
                                     {
                                         type: "message",
                                         label: "Hari ini",
-                                        text: "penanggal hari ini"
+                                        text: "hari ini"
                                     },
                                     {  
                                         "type":"datetimepicker",
@@ -126,7 +126,7 @@ Router.post('/callback', async(ctx) => {
                                     {
                                         type: "message",
                                         label: "Hari ini",
-                                        text: "penanggal hari ini"
+                                        text: "hari ini"
                                     },
                                     {  
                                         "type":"datetimepicker",
