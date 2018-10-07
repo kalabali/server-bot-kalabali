@@ -509,22 +509,27 @@ async function getRerainan (rerainan, date, type) {
           }
         });
 
-        var result = {
-        "type": "flex",
-        "altText": "Hasil cari rerainan",
-        "contents": 
-            {
-            "type": "bubble",
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": arrayRes
+        if(arrayRes.length == 2){
+            return {
+                type: "text",
+                text: "Tidak ada rerainan "+ rerainan + " dalam waktu dekat"
             }
-          }
+        } else {
+            var result = {
+                "type": "flex",
+                "altText": "Hasil cari rerainan",
+                "contents": 
+                    {
+                    "type": "bubble",
+                    "body": {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": arrayRes
+                    }
+                  }
+                }
+            return result
         }
-    
-    console.log(result)
-    return result
     }
 }
 
