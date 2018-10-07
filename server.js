@@ -46,7 +46,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
     cron.schedule('0 5 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat pagi, jam sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: "Selamat pagi, waktu sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -64,7 +64,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
       cron.schedule('0 11 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat siang, jam sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: "Selamat siang, waktu sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -82,7 +82,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
       cron.schedule('0 17 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat Sore, jam sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: "Selamat Sore, waktu sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -334,7 +334,7 @@ Router.post('/callback', async(ctx) => {
               else if(e.message.text.toLowerCase() == "bantuan" || e.message.text.toLowerCase() == "help" || e.message.text.toLowerCase() == "tolong"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
+                    text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" yang ada di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
                 }]); 
               }
               else if(e.message.text.toLowerCase() == "om swastiastu"){
@@ -343,7 +343,7 @@ Router.post('/callback', async(ctx) => {
                     text: `Om swastiastu.`
                 }]); 
               }
-              else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo"){
+              else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo"){ //@TODO adding more gimmick
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
                     text: `Hallo kak.`
@@ -358,7 +358,7 @@ Router.post('/callback', async(ctx) => {
               else if(e.message.text.toLowerCase() == "about" || e.message.text.toLowerCase() == "tentang" || e.message.text.toLowerCase() == "kala bali"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: `Kala Bali adalah aplikasi untuk mengakses informasi mengenai kalendar bali secara digital\nDibuat di Bali, oleh I Made Surya Budi Surya Darma dan Teofilus Candra`
+                    text: `Kala Bali adalah aplikasi untuk mengakses informasi mengenai kalendar bali secara digital\nDibuat di Bali, oleh I Made Budi Surya Darma dan Teofilus Candra`
                 }]); 
               }
               else if(e.message.text.toLowerCase() == "feedback" || e.message.text.toLowerCase() == "masukkan"){
@@ -366,6 +366,112 @@ Router.post('/callback', async(ctx) => {
                     type: "text",
                     text: `Kala Bali sangat mengapresiasi kritik dan masukan, kirimkan melalui email resmi kami : kalabalimedia@gmail.com`
                 }]); 
+              }
+              else if(e.message.text.toLowerCase().indexOf("matikan") != -1){                
+                let message = e.message.text.toLowerCase().split(" ");
+                const indexMati = message.indexOf("matikan");
+                if(message[indexMati + 1] != undefined){                    
+                    if(message[indexMati + 1] == "trisandya" || message[indexMati + 1] == "trisandhya"){
+                        removeUser(e.source.userId, 'trisandya.json')
+                        .then(status => {                            
+                            return client.replyMessage(e.replyToken, [
+                                {
+                                    type: "text",
+                                    text: `\udbc0\udc71 Mematikan notifikasi pengingat Tri Sandhya.\n\n Kakak bisa menghidupkannya pengingat lagi dengan mengetikkan "Hidupkan Tri Sandhya"`
+                                }
+                            ]);  
+                        })
+                    }
+                    else if(message[indexMati + 1] == "tri"){                        
+                        if(message[indexMati + 2] != undefined){
+                            if(message[indexMati + 2] == "sandya" || message[indexMati + 2] == "sandhya"){
+                                console.log("mati tri sandya")
+                                removeUser(e.source.userId, 'trisandya.json')
+                                .then(status => {
+                                    if(status.success){
+                                        return client.replyMessage(e.replyToken, [
+                                            {
+                                                type: "text",
+                                                text: `\udbc0\udc71 Mematikan notifikasi pengingat Tri Sandhya.\n\nKakak bisa menghidupkannya pengingat lagi dengan mengetikkan "Hidupkan Tri Sandhya"`
+                                            }
+                                        ]);  
+                                    }
+                                    else if(!status.success){
+                                        return client.replyMessage(e.replyToken, [
+                                            {
+                                                type: "text",
+                                                text: `Kakak belum menghidupkan notifikasi pengingat Tri Sandhya. \n\nKakak bisa menghidupkannya pengingat dengan mengetikkan "Hidupkan Tri Sandhya"`
+                                            }
+                                        ]);  
+                                    }                                    
+                                })
+                            }
+                            else
+                                return bingung(e.replyToken);        
+                        }
+                        else
+                            return bingung(e.replyToken);        
+                    }
+                    else{
+                        return bingung(e.replyToken);        
+                    }
+                }
+                else{
+                    return bingung(e.replyToken);        
+                }
+              }
+              else if(e.message.text.toLowerCase().indexOf("hidupkan") != -1){                
+                let message = e.message.text.toLowerCase().split(" ");
+                const indexMati = message.indexOf("hidupkan");
+                if(message[indexMati + 1] != undefined){                    
+                    if(message[indexMati + 1] == "trisandya" || message[indexMati + 1] == "trisandhya"){
+                        addUser(e.source.userId, 'trisandya.json')
+                        .then(status => {                            
+                            return client.replyMessage(e.replyToken, [
+                                {
+                                    type: "text",
+                                    text: `\udbc0\udc71 Menghidupkan notifikasi pengingat Tri Sandhya.\n\n Kakak bisa menonaktifkan pengingat dengan mengetikkan "Matikan Tri Sandhya"`
+                                }
+                            ]);  
+                        })
+                    }
+                    else if(message[indexMati + 1] == "tri"){                        
+                        if(message[indexMati + 2] != undefined){
+                            if(message[indexMati + 2] == "sandya" || message[indexMati + 2] == "sandhya"){
+                                addUser(e.source.userId, 'trisandya.json')
+                                .then(status => {   
+                                    console.log({status})                                 
+                                    if(status.success){
+                                        return client.replyMessage(e.replyToken, [
+                                            {
+                                                type: "text",
+                                                text: `\udbc0\udc71 Menghidupkan notifikasi pengingat Tri Sandhya.\n\n Kakak bisa menonaktifkan pengingat dengan mengetikkan "Matikan Tri Sandhya"`
+                                            }
+                                        ]);  
+                                    }        
+                                    else if(!status.success){
+                                        return client.replyMessage(e.replyToken, [
+                                            {
+                                                type: "text",
+                                                text: `Kakak belum menghidupkan notifikasi pengingat Tri Sandhya. \n\nKakak bisa menghidupkannya pengingat dengan mengetikkan "Hidupkan Tri Sandhya"`
+                                            }
+                                        ]);  
+                                    }                            
+                                })
+                            }
+                            else
+                                return bingung(e.replyToken);        
+                        }
+                        else
+                            return bingung(e.replyToken);        
+                    }
+                    else{
+                        return bingung(e.replyToken);        
+                    }
+                }
+                else{
+                    return bingung(e.replyToken);        
+                }
               }
               else {                
                 return bingung(e.replyToken);
@@ -375,7 +481,18 @@ Router.post('/callback', async(ctx) => {
                 return bingung(e.replyToken)
             }
             if(e.type == "follow"){ //bot added as friend or unblocked
-                
+                const newUserId = e.source.userId;
+                addUser(newUserId, "trisandya.json")
+                .then(status => {
+                    console.log({status})
+                })
+            }
+            if(e.type == "unfollow"){ //bot is blocked
+                const semetonTarget = e.source.userId;
+                removeUser(semetonTarget, 'trisandya.json')
+                .then(status => {
+                    console.log({status})
+                })
             }
         })
     )
@@ -384,6 +501,61 @@ Router.post('/callback', async(ctx) => {
     })
     //ctx.body = await Promise.all(results.map(result => result.json()))
 })
+
+function addUser(userId, jsonName){
+    return new Promise((resolve, reject) => {
+        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/${jsonName}`), (err, data) => { //tambhakan di push notif trisandya
+            if(err == null){                
+                const semetons = JSON.parse(data).user_id;                                
+                if(semetons.indexOf(userId) == -1){
+                    semetons.push(userId);
+                    fs.writeFile(path.normalize(`${__dirname}/utils/push-notif/${jsonName}`), JSON.stringify({user_id: semetons}), err => {
+                        if(err) console.log(err);
+                        console.log(`User ${userId} added`);
+                        resolve({success: true})
+                    })                        
+                }                        
+                else{
+                    console.log(`User ${userId} already exist`);
+                    resolve({success: false})
+                }
+            }            
+        }) 
+    })
+}
+
+function removeUser(userId, jsonName){
+    return new Promise((resolve, reject) => {
+        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/${jsonName}`), (err, data) => { //tambhakan di push notif trisandya
+            if(err == null){                
+                let semetons = JSON.parse(data).user_id;                                
+                const semetonIndex = semetons.indexOf(userId);
+                if(semetonIndex != -1){
+                    if(semetonIndex == 0){
+                        semetons.shift();
+                    }
+                    else if(semetonIndex == semetons.length - 1){
+                        semetons.pop();
+                    }
+                    else{
+                        const frontEl = semetons.slice(0, semetonIndex);
+                        const backEl = semetons.slice(semetonIndex + 1);
+                        semetons = frontEl.concat(backEl);                            
+                    }                        
+                    fs.writeFile(path.normalize(`${__dirname}/utils/push-notif/${jsonName}`), JSON.stringify({user_id: semetons}), err => {
+                        if(err) console.log(err);
+                        console.log(`User ${userId} removed`);
+                        resolve({success: true});
+                    })       
+                }
+                else{
+                    console.log(`User ${userId} has been removed`);
+                    resolve({success: false});
+                }                    
+            }            
+        })        
+    })
+}
 
 function bingung(replyToken){
     let replies = [];
