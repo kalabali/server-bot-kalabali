@@ -312,7 +312,7 @@ Router.post('/callback', async(ctx) => {
               else if(e.message.text.toLowerCase() == "cari"){                
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: "Cari \nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \n\nMisal ketikkan : Cari Purnama atau Cari Kuningan\n\nAtau kakak dapat menggunakan daftar rerainan yang sering dicari dibawah ini.",
+                    text: "Hai kak,\nMenu ini dapat digunakan untuk mencari hari raya / upacara tertentu yang akan datang setelah hari ini. \n\nMisal ketikkan : Cari Purnama atau Cari Kuningan\n\nAtau kakak dapat menggunakan daftar rerainan yang sering dicari dibawah ini.",
                     quickReply: {
                         items: [
                             {
@@ -408,15 +408,25 @@ Router.post('/callback', async(ctx) => {
                 }]);
 
               } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
-                    if(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5)){
-                        client.replyMessage(e.replyToken, [{
-                            type: "text",
-                            text: "\ud83d\udd0d Tunggu sebentar ya kak..."
-                        }])
+                    if(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5)){                        
                         const date = await moment().tz("Asia/Makassar");
-                        console.log(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5))
+                        const rerainan = e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5);
                         const echo = await calendar.getRerainan(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5),date,'near')                        
-                        pushPenanggal(e.source.userId, echo);
+                        let replies = [                            
+                            {
+                                type: "text",
+                                text: "\udbc0\udc8f Hai kak, ketemu nih..."
+                            },
+                            echo                            
+                        ]                        
+                        if(rerainan == "nyepi" || rerainan == "galungan" || rerainan == "siwaratri" || rerainan == "pagerwesi" || rerainan == "tumpek" || rerainan == "anggar kasih" || rerainan == "buda kliwon" || rerainan == "saraswati" || rerainan == "purnama" || rerainan == "tilem" || rerainan == "kuningan"){
+                            replies.push({
+                                type: "text",
+                                text: `Ingin lebih tahu apa itu Hari Raya ${rerainan}?\nCoba ketikkan "Apa itu ${rerainan}"`
+                            })
+                        }
+                        client.replyMessage(e.replyToken, replies)
+                        // pushPenanggal(e.source.userId, replies);
                     } else {
                         return client.replyMessage(e.replyToken, [{
                             type: "text",
@@ -567,15 +577,15 @@ Router.post('/callback', async(ctx) => {
                 }
               }
               else if(e.message.text.toLowerCase().indexOf("apa itu") != -1){
-                  const message = e.message.text.split("apa itu");
-                  const target = message[1];
-                  fs.readFile(path.normalize(`${__dirname}/desc/rerainan.json`), (err, data) => {
-                      const rerainan = JSON.parse(data);                      
-                      console.log({rerainan})
+                  let message = e.message.text.toLowerCase().split("apa itu");                  
+                  let target = message[1].trim().replace(/ /g,"_");
+                  target = target.replace(/\?/g,"");
+                  fs.readFile(path.normalize(`${__dirname}/utils/desc/rerainan.json`), (err, data) => {
+                      const rerainan = JSON.parse(data).rerainan;                       
                       if(rerainan[target] != undefined){
-                        client.replyMessage(replyToken, [{
+                        client.replyMessage(e.replyToken, [{
                             type: "text",
-                            text: rerainan[target].desc
+                            text: "Hai kak,\n\n" + rerainan[target].desc
                         }]);  
                       }
                       else{
