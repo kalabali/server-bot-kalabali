@@ -46,7 +46,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
     cron.schedule('0 5 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat pagi, waktu sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: `Selamat pagi, waktu sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -64,7 +64,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
       cron.schedule('0 11 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat siang, waktu sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: `Selamat siang, waktu sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -82,7 +82,7 @@ if(process.env.NODE_APP_INSTANCE === '0') {
       cron.schedule('0 17 * * *', () => {
         let message = [{
             type: "text",
-            text: "Selamat Sore, waktu sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya."
+            text: `Selamat Sore, waktu sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
         }];
         fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
             if(err == null){                
@@ -556,7 +556,7 @@ Router.post('/callback', async(ctx) => {
                                         return client.replyMessage(e.replyToken, [
                                             {
                                                 type: "text",
-                                                text: `Kakak belum menghidupkan notifikasi pengingat Tri Sandhya. \n\nKakak bisa menghidupkannya pengingat dengan mengetikkan "Hidupkan Tri Sandhya"`
+                                                text: `Kakak sudah menghidupkan notifikasi pengingat Tri Sandhya. \n\nMau mematikannya? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
                                             }
                                         ]);  
                                     }                            
