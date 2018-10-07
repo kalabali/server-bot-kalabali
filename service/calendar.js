@@ -509,7 +509,7 @@ async function getRerainan (rerainan, date, type) {
           }
         });
 
-        if(arrayRes.contents.length == 0){
+        if(arrayRes.length == 2){
             return {
                 type: "text",
                 text: "Tidak ada rerainan "+ rerainan + " dalam waktu dekat"
