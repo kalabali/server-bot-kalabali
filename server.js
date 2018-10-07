@@ -112,21 +112,21 @@ Router.post('/callback', async(ctx) => {
                         text: "\ud83d\udd0d Tunggu sebentar ya kak..."
                     })                                 
                 console.log(e.postback.params.date)
+                client.replyMessage(e.replyToken, replies);
                 let date = moment(e.postback.params.date)
                 const echo = await calendar.getCalendar(date);
-                ctx.body = echo;
-                client.replyMessage(e.replyToken, echo);
-                pushPenanggal(e.source.userId, replies); 
+                ctx.body = echo;                
+                pushPenanggal(e.source.userId, echo); 
                }
             } else if(e.type == 'message' && e.message.type == "text"){
                 //checking interaction
-                // Fitur 1 Penanggal
+                // Fitur 1 Penanggal                
                 if(e.message.text.toLowerCase().substring(0,9) == "penanggal"){
                     if(e.message.text.length == 9){
                         let replies = [];
                         replies.push({
                             type: "text",
-                            text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
+                            text: `Hai kak, kakak dapat mengunakan menu penanggal untuk mencari tahu detail dari suatu hari.\n\nMulai dari hari raya, momen peringatan, wuku, dll.\n\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".`
                         })
                         replies.push({
                             type: 'template',
@@ -186,16 +186,17 @@ Router.post('/callback', async(ctx) => {
                     }
                 }
                 else if(e.message.text.toLowerCase().indexOf("hari ini") != -1){
+                    client.replyMessage(e.replyToken, [{
+                        type: "text",
+                        text: "\ud83d\udd0d Tunggu sebentar ya kak..."
+                    }])
                     const date = await moment().tz("Asia/Makassar");
-                    const echo = await calendar.getCalendar(date);
-                    return client.replyMessage(e.replyToken, echo);
+                    const echo = await calendar.getCalendar(date);                    
+                    pushPenanggal(e.source.userId, echo);  
                 }
                 else if(e.message.text.toLowerCase().substr(0,9) == "penanggal" && e.message.text.length > 9){
                     let message = e.message.text.toLowerCase().substr(9).trim()
                     message = message.split(" ");
-                    console.log({
-                        message
-                    })
                     let replies = [];
                     if(`${message[1]} ${message[2]}` == "hari ini"){                        
                         replies.push({
@@ -230,6 +231,7 @@ Router.post('/callback', async(ctx) => {
                             }
                         }
                         else{
+                            console.log("masuk sini")
                            return bingung(e.replyToken)
                         }                          
                         
@@ -240,7 +242,7 @@ Router.post('/callback', async(ctx) => {
                     return client.replyMessage(e.replyToken, [                        
                         {
                             type: "text",
-                            text: `Hai kak, kakak dapat mengunakan menu Kalender Bulanan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".`
+                            text: `Hai kak, kakak dapat mengunakan menu Kalender Bulanan untuk mengetahui informasi dalam 1 bulan.\n\nMulai dari hari raya, momen peringatan, libur nasional, dll.\n\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".`
                         }
                     ]); 
                   }
@@ -249,10 +251,6 @@ Router.post('/callback', async(ctx) => {
                         remainM
                     })
                     let monthIndex = utils.getMonthIndex(remainM[0]);
-                    console.log({
-                        remainM,
-                        monthIndex
-                    })
                     if(monthIndex === -1){
                         return client.replyMessage(e.replyToken, [                        
                             {
@@ -311,19 +309,114 @@ Router.post('/callback', async(ctx) => {
                     }
                   }                  
               } 
-              else if(e.message.text.toLowerCase() == "cari"){
-                
+              else if(e.message.text.toLowerCase() == "cari"){                
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: "Cari \nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan"
+                    text: "Cari \nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \n\nMisal ketikkan : Cari Purnama atau Cari Kuningan\n\nAtau kakak dapat menggunakan daftar rerainan yang sering dicari dibawah ini.",
+                    quickReply: {
+                        items: [
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Nyepi",
+                                    "text":"Cari Nyepi"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Galungan",
+                                    "text":"Cari Galungan"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Kuningan",
+                                    "text":"Cari Kuningan"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Purnama",
+                                    "text":"Cari Purnama"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Tilem",
+                                    "text":"Cari Tilem"
+                                }
+                            },                           
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Pagerwesi",
+                                    "text":"Cari Pagerwesi"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Saraswati",
+                                    "text":"Cari Saraswati"
+                                }
+                            },                            
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Siwaratri",
+                                    "text":"Cari Siwaratri"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Buda Kliwon",
+                                    "text":"Cari Buda Kliwon"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Tumpek",
+                                    "text":"Cari Tumpek"
+                                }
+                            },
+                            {
+                                type: "action",                                
+                                action: {  
+                                    "type":"message",
+                                    "label":"Anggar Kasih",
+                                    "text":"Cari Anggar Kasih"
+                                }
+                            }
+                        ]
+                    }
                 }]);
 
               } else if(e.message.text.toLowerCase().indexOf("cari") != -1){
                     if(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5)){
+                        client.replyMessage(e.replyToken, [{
+                            type: "text",
+                            text: "\ud83d\udd0d Tunggu sebentar ya kak..."
+                        }])
                         const date = await moment().tz("Asia/Makassar");
                         console.log(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5))
-                        const echo = await calendar.getRerainan(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5),date,'all')
-                        return client.replyMessage(e.replyToken, echo)
+                        const echo = await calendar.getRerainan(e.message.text.toLowerCase().substring(e.message.text.toLowerCase().indexOf("cari") + 5),date,'near')                        
+                        pushPenanggal(e.source.userId, echo);
                     } else {
                         return client.replyMessage(e.replyToken, [{
                             type: "text",
@@ -334,7 +427,7 @@ Router.post('/callback', async(ctx) => {
               else if(e.message.text.toLowerCase() == "bantuan" || e.message.text.toLowerCase() == "help" || e.message.text.toLowerCase() == "tolong"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
-                    text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" yang ada di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan`
+                    text: `Kala siap membantu, kakak dapat mengakses menu-menu yang ada dari menu "Kala Bali" yang ada di sebelah tombol menu.\n\n\udbc0\udca4 Penanggal\nPenanggal adalah menu untuk mencari tahu detail dari suatu hari.\nMulai dari hari raya, momen peringatan, wuku, dll.\nKakak dapat menggunakannya dengan mengetikkan "Penanggal dong".\n\n\udbc0\udca4 Kalender Bulanan\nMenu Kalender Bulanan digunakan untuk mengetahui informasi dalam 1 bulan.\nMulai dari hari raya, momen peringatan, libur nasional, dll.\nKakak dapat menggunakannya dengan mengetikkan "Kalender<spasi>bulan<spasi>tahun".\n\n\udbc0\udca4 Cari Hari Raya Terdekat\nMenu ini adalah untuk mencari hari penting / upacara tertentu yang akan datang setelah hari ini. \nMisal ketikkan : Cari Purnama atau Cari Kuningan\n\nKala Bali sangat mengapresiasi kritik dan masukan, kirimkan melalui email resmi kami : kalabalimedia@gmail.com`
                 }]); 
               }
               else if(e.message.text.toLowerCase() == "om swastiastu"){
@@ -343,13 +436,13 @@ Router.post('/callback', async(ctx) => {
                     text: `Om swastiastu.`
                 }]); 
               }
-              else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo"){ //@TODO adding more gimmick
+              else if(e.message.text.toLowerCase() == "hi" || e.message.text.toLowerCase() == "hallo" || e.message.text.toLowerCase() == "halo"|| e.message.text.toLowerCase() == "hai"|| e.message.text.toLowerCase() == "haii"){ //@TODO adding more gimmick
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
                     text: `Hallo kak.`
                 }]); 
               }
-              else if(e.message.text.toLowerCase() == "kala"){
+              else if(e.message.text.toLowerCase() == "kala"|| e.message.text.toLowerCase() == "halo kala"|| e.message.text.toLowerCase() == "halo kala" || e.message.text.toLowerCase() == "halo kala bali"|| e.message.text.toLowerCase() == "hai kala"|| e.message.text.toLowerCase() == "hai kala bali" || e.message.text.toLowerCase() == "hallo kala"|| e.message.text.toLowerCase() == "hallo kala" || e.message.text.toLowerCase() == "hallo kala bali"){
                 return client.replyMessage(e.replyToken, [{
                     type: "text",
                     text: `Hallo kak, ada yang bisa kala bantu?`
@@ -472,6 +565,23 @@ Router.post('/callback', async(ctx) => {
                 else{
                     return bingung(e.replyToken);        
                 }
+              }
+              else if(e.message.text.toLowerCase().indexOf("apa itu") != -1){
+                  const message = e.message.text.split("apa itu");
+                  const target = message[1];
+                  fs.readFile(path.normalize(`${__dirname}/desc/rerainan.json`), (err, data) => {
+                      const rerainan = JSON.parse(data);                      
+                      console.log({rerainan})
+                      if(rerainan[target] != undefined){
+                        client.replyMessage(replyToken, [{
+                            type: "text",
+                            text: rerainan[target].desc
+                        }]);  
+                      }
+                      else{
+                        bingung(e.replyToken);
+                      }
+                  })
               }
               else {                
                 return bingung(e.replyToken);

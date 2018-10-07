@@ -85,14 +85,14 @@ async function getCalendar (date) {
                     "contents": [
                         {
                         "type": "text",
-                        "text": "Day",
+                        "text": "Hari",
                         "size": "sm",
                         "color": "#555555",
                         "flex": 0
                         },
                         {
                         "type": "text",
-                        "text": body.details.day.day_name.caka,
+                        "text": `${body.details.day.day_name.caka} (${body.details.day.day_name.masehi})`,
                         "size": "sm",
                         "color": "#111111",
                         "align": "end"
@@ -433,13 +433,17 @@ async function getRerainan (rerainan, date, type) {
     }
     
     const body = JSON.parse(response.body)
-    if(body.results.length == 0){
+    console.log({
+        body: body.results,
+        length: body.results.length,
+        url: `http://117.53.46.40:4000/v1/cari?keyword=${rerainan}&bulan=${date.format('MM')}&tahun=${date.format('YYYY')}&tanggal=${date.format('DD')}&filter=all`
+    })
+    if(body.results.length == 0){        
         return {
             type: "text",
-            text: "Tidak ada rerainan dengan kata kunci " + rerainan
+            text: `Maaf kak, kala tidak menemukan rerainan dengan kata kunci ${rerainan} \udbc0\udc92`
         }
     } else {
-
         var arrayRes = [
             {
               "type": "text",
@@ -455,8 +459,6 @@ async function getRerainan (rerainan, date, type) {
           ]
           
         body.results.forEach(element => {
-            if(parseInt(element.query.month) >= parseInt(date.format('MM'))){
-
             var events = [
             {
                 "type": "text",
@@ -464,7 +466,7 @@ async function getRerainan (rerainan, date, type) {
                 "size": "xs",
                 "color": "#aaaaaa",
                 "wrap": true
-              }
+            }
             ]
             element.data.events.forEach(event => {
                 events.push({
@@ -472,30 +474,30 @@ async function getRerainan (rerainan, date, type) {
                     "layout": "baseline",
                     "spacing": "sm",
                     "contents": [
-                      {
+                    {
                         "type": "text",
                         "text": "Rerainan",
                         "color": "#aaaaaa",
                         "size": "sm",
                         "flex": 2
-                      },
-                      {
+                    },
+                    {
                         "type": "text",
                         "text": event.event_name,
                         "wrap": true,
                         "color": "#666666",
                         "size": "sm",
                         "flex": 5
-                      }
+                    }
                     ]
-                  })
+                })
             })
 
             events.push(
                 {
                     "type": "separator",
                     "margin": "xxl"
-                  }
+                }
             )
 
             arrayRes.push({
@@ -504,9 +506,8 @@ async function getRerainan (rerainan, date, type) {
                 "margin": "lg",
                 "spacing": "sm",
                 "contents": events
-              },
+            },
             )
-          }
         });
 
         if(arrayRes.length == 2){
