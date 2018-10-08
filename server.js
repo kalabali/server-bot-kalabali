@@ -686,7 +686,7 @@ function bingung(replyToken){
     })
     replies.push({
         type: "text",
-        text: "Maaf, sepertinya pesan yang kakak berikan salah. Kala jadi bingung."
+        text: `Maaf, sepertinya pesan yang kakak berikan salah. Kala jadi bingung.\n\nKala masih belajar nih, kalau kakak bingung coba ketikkan "Bantuan".`
     })                                         
     return client.replyMessage(replyToken, replies);  
 }
