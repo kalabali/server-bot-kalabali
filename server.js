@@ -470,6 +470,18 @@ Router.post('/callback', async(ctx) => {
                     text: `Kala Bali sangat mengapresiasi kritik dan masukan, kirimkan melalui email resmi kami : kalabalimedia@gmail.com`
                 }]); 
               }
+              else if(e.message.text.toLowerCase().indexOf("thank") != -1 || e.message.text.toLowerCase() == "terima kasih" || e.message.text.toLowerCase().indexOf("suksma") != -1){
+                return client.replyMessage(e.replyToken, [
+                {
+                    "type": "sticker",
+                    "packageId": "1",
+                    "stickerId": "13"
+                },
+                {
+                    type: "text",
+                    text: `Terima kasih kembali kak.`
+                }]); 
+              }
               else if(e.message.text.toLowerCase().indexOf("matikan") != -1){                
                 let message = e.message.text.toLowerCase().split(" ");
                 const indexMati = message.indexOf("matikan");
@@ -606,6 +618,11 @@ Router.post('/callback', async(ctx) => {
                 .then(status => {
                     console.log({status})
                 })
+                addUser(newUserId, "follow.json")
+                .then(status => {
+                    console.log({status})
+                })
+
             }
             if(e.type == "unfollow"){ //bot is blocked
                 const semetonTarget = e.source.userId;
@@ -684,10 +701,22 @@ function bingung(replyToken){
         packageId: 1,
         stickerId: 108
     })
-    replies.push({
-        type: "text",
-        text: "Maaf, sepertinya pesan yang kakak berikan salah. Kala jadi bingung."
-    })                                         
+    let textArr = [
+        {
+            type: "text",
+            text: "Maaf, sepertinya pesan yang kakak berikan salah. Kala jadi bingung."
+        },
+        {
+            type: "text",
+            text: "Maaf kak, kala masih belajar dan belum mengerti yang kakak mau. \udbc0\udc7c"
+        },
+        {
+            type: "text",
+            text: "Sepertinya kakak bingung \udbc0\udc1b.\n\nCoba ketikkan 'Bantuan'."
+        },
+    ]
+    let index = Math.round(Math.random() * (2 - 0) + 0);
+    replies.push(textArr[index]);
     return client.replyMessage(replyToken, replies);  
 }
 
