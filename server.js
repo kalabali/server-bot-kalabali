@@ -701,7 +701,6 @@ function bingung(replyToken){
         packageId: 1,
         stickerId: 108
     })
-<<<<<<< HEAD
     let textArr = [
         {
             type: "text",
@@ -718,12 +717,6 @@ function bingung(replyToken){
     ]
     let index = Math.round(Math.random() * (2 - 0) + 0);
     replies.push(textArr[index]);
-=======
-    replies.push({
-        type: "text",
-        text: `Maaf, sepertinya pesan yang kakak berikan salah. Kala jadi bingung.\n\nKala masih belajar nih, kalau kakak bingung coba ketikkan "Bantuan".`
-    })                                         
->>>>>>> 636d2940392d0703aec6ad6ff089c7dafdb97c0c
     return client.replyMessage(replyToken, replies);  
 }
 
