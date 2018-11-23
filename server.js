@@ -7,7 +7,7 @@ const dateValidator = require("./utils/date-validator")
 const utils = require("./service/utils")
 const render = require('koa-ejs');
 const serve = require('koa-static');
-const cron = require("node-cron");
+
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config()
@@ -15,6 +15,8 @@ const app = new Koa()
 app.use(bodyParser())
 
 var moment = require('moment-timezone');
+
+const cron_schedule = require('./service/cron');
 
 render(app, {
     root: path.join(__dirname, 'view'),
@@ -38,64 +40,10 @@ Router.get('/', async(ctx) => {
     await ctx.render('index');
 })
 
-Router.get('/calendar', async(ctx) => {
-    ctx.body = "Calendar"
-})
-
-if(process.env.NODE_APP_INSTANCE === '0') {    
-    cron.schedule('0 5 * * *', () => {
-        let message = [{
-            type: "text",
-            text: `Selamat pagi, waktu sudah menunjukkan pukul 06.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
-        }];
-        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
-            if(err == null){                
-                const semetons = JSON.parse(data);                                
-                semetons.user_id.forEach(semeton => {
-                    client.pushMessage(semeton, message);
-                })
-            }            
-        })        
-      }, {
-        scheduled: true,
-        timezone: "Asia/Jakarta"
-      });
-      
-      cron.schedule('0 11 * * *', () => {
-        let message = [{
-            type: "text",
-            text: `Selamat siang, waktu sudah menunjukkan pukul 12.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
-        }];
-        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
-            if(err == null){                
-                const semetons = JSON.parse(data);                                
-                semetons.user_id.forEach(semeton => {
-                    client.pushMessage(semeton, message);
-                })
-            }            
-        })        
-      }, {
-        scheduled: true,
-        timezone: "Asia/Jakarta"
-      });
-
-      cron.schedule('0 17 * * *', () => {
-        let message = [{
-            type: "text",
-            text: `Selamat Sore, waktu sudah menunjukkan pukul 18.00 WITA.\n\nMarilah kita umat sedarma menghaturkan Puja Tri Sandhya.\n\nIngin menonaktifkan pengingat ini? Kakak bisa mengetikkan "Matikan Tri Sandhya"`
-        }];
-        fs.readFile(path.normalize(`${__dirname}/utils/push-notif/trisandya.json`), (err, data) => {
-            if(err == null){                
-                const semetons = JSON.parse(data);                                
-                semetons.user_id.forEach(semeton => {
-                    client.pushMessage(semeton, message);
-                })
-            }            
-        })        
-      }, {
-        scheduled: true,
-        timezone: "Asia/Jakarta"
-      });
+if(process.env.NODE_APP_INSTANCE === '0') {
+    cron_schedule('0 5 * * *', cron_schedule.message_pagi)
+    cron_schedule('0 11 * * *', cron_schedule.message_siang)
+    cron_schedule('0 17 * * *', cron_schedule.message_sore)
 }
 
 Router.post('/callback', async(ctx) => {
